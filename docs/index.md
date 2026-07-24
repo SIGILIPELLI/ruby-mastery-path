@@ -1,3 +1,8 @@
+---
+title: "Learn Ruby Free: Beginner to Master Course"
+description: "Free Ruby course from beginner to advanced -- hands-on lessons with runnable code and real capstone projects. Part of a 37-course free learning library."
+---
+
 # Ruby Mastery Path
 
 A structured, module-wise Ruby training program that takes you from your first
