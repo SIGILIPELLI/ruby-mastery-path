@@ -52,4 +52,48 @@
          <loc>https://sigilipelli.github.io/ruby-mastery-path/level-1/10-project-todo-app/</loc>
          <lastmod>2026-08-02</lastmod>
     </url>
+    <url>
+         <loc>https://sigilipelli.github.io/ruby-mastery-path/level-2/</loc>
+         <lastmod>2026-08-02</lastmod>
+    </url>
+    <url>
+         <loc>https://sigilipelli.github.io/ruby-mastery-path/level-2/01-oop-deep-dive/</loc>
+         <lastmod>2026-08-02</lastmod>
+    </url>
+    <url>
+         <loc>https://sigilipelli.github.io/ruby-mastery-path/level-2/02-blocks-procs-lambdas-advanced/</loc>
+         <lastmod>2026-08-02</lastmod>
+    </url>
+    <url>
+         <loc>https://sigilipelli.github.io/ruby-mastery-path/level-2/03-exception-handling/</loc>
+         <lastmod>2026-08-02</lastmod>
+    </url>
+    <url>
+         <loc>https://sigilipelli.github.io/ruby-mastery-path/level-2/04-file-io/</loc>
+         <lastmod>2026-08-02</lastmod>
+    </url>
+    <url>
+         <loc>https://sigilipelli.github.io/ruby-mastery-path/level-2/05-testing-rspec/</loc>
+         <lastmod>2026-08-02</lastmod>
+    </url>
+    <url>
+         <loc>https://sigilipelli.github.io/ruby-mastery-path/level-2/06-json-apis/</loc>
+         <lastmod>2026-08-02</lastmod>
+    </url>
+    <url>
+         <loc>https://sigilipelli.github.io/ruby-mastery-path/level-2/07-metaprogramming-basics/</loc>
+         <lastmod>2026-08-02</lastmod>
+    </url>
+    <url>
+         <loc>https://sigilipelli.github.io/ruby-mastery-path/level-2/08-gem-development/</loc>
+         <lastmod>2026-08-02</lastmod>
+    </url>
+    <url>
+         <loc>https://sigilipelli.github.io/ruby-mastery-path/level-2/09-enumerable-comparable/</loc>
+         <lastmod>2026-08-02</lastmod>
+    </url>
+    <url>
+         <loc>https://sigilipelli.github.io/ruby-mastery-path/level-2/10-project-weather-cli/</loc>
+         <lastmod>2026-08-02</lastmod>
+    </url>
 </urlset>
