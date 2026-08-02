@@ -62,8 +62,19 @@ nav:
       - "08 · Blocks, Procs & Lambdas Intro": level-1/08-blocks-procs-lambdas.md
       - "09 · Gems & Bundler Basics": level-1/09-gems-bundler.md
       - "10 · Project — CLI To-Do App": level-1/10-project-todo-app.md
+  - "Level 2 · Intermediate":
+      - Overview: level-2/index.md
+      - "01 · OOP Deep Dive": level-2/01-oop-deep-dive.md
+      - "02 · Blocks/Procs/Lambdas Advanced": level-2/02-blocks-procs-lambdas-advanced.md
+      - "03 · Exception Handling": level-2/03-exception-handling.md
+      - "04 · File I/O": level-2/04-file-io.md
+      - "05 · Testing with RSpec": level-2/05-testing-rspec.md
+      - "06 · Working with JSON/APIs": level-2/06-json-apis.md
+      - "07 · Metaprogramming Basics": level-2/07-metaprogramming-basics.md
+      - "08 · Gem Development Basics": level-2/08-gem-development.md
+      - "09 · Enumerable & Comparable": level-2/09-enumerable-comparable.md
+      - "10 · Project — Weather CLI": level-2/10-project-weather-cli.md
 # --- auto-pruned stub levels (see AdSense low-value-content fix) ---
 exclude_docs: |
-  level-2/*.md
   level-3/*.md
   level-4/*.md
