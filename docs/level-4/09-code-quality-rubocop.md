@@ -1,7 +1,195 @@
 # 09 · Code Quality & RuboCop
 
-!!! info "Coming soon"
-    This module's full lessons and code snippets are being written next.
-    Static analysis and style enforcement with RuboCop.
+RuboCop is a static analyzer and style enforcer for Ruby — it reads your
+code without running it and flags style violations, common bug patterns,
+and complexity smells. Most Ruby teams run it in CI (as shown in the
+Testing at Scale module) so style debt is caught automatically rather
+than relying on every reviewer to notice a missing space.
 
-More lessons are on the way — check back soon.
+## A messy file, analyzed
+
+```ruby
+# messy.rb
+class Foo
+  def bar( x,y )
+    if x == nil
+      return
+    end
+    z=x+y
+    return z
+  end
+end
+```
+
+```text
+$ rubocop messy.rb
+Inspecting 1 file
+C
+
+Offenses:
+
+messy.rb:1:1: C: Style/Documentation: Missing top-level documentation comment for class Foo.
+class Foo
+^^^^^^^^^
+messy.rb:1:1: C: [Correctable] Style/FrozenStringLiteralComment: Missing frozen string literal comment.
+class Foo
+^
+messy.rb:2:11: C: [Correctable] Layout/SpaceInsideParens: Space inside parentheses detected.
+  def bar( x,y )
+          ^
+messy.rb:2:12: C: Naming/MethodParameterName: Method parameter must be at least 3 characters long.
+  def bar( x,y )
+           ^
+messy.rb:3:5: C: [Correctable] Style/IfUnlessModifier: Favor modifier if usage when having a single-line body.
+    if x == nil
+    ^^
+messy.rb:3:10: C: [Correctable] Style/NilComparison: Prefer the use of the nil? predicate.
+    if x == nil
+         ^^
+messy.rb:6:6: C: [Correctable] Layout/SpaceAroundOperators: Surrounding space missing for operator =.
+    z=x+y
+     ^
+messy.rb:7:5: C: [Correctable] Style/RedundantReturn: Redundant return detected.
+    return z
+    ^^^^^^
+
+1 file inspected, 13 offenses detected, 10 offenses autocorrectable
+```
+
+Every line names a **cop** — a single, focused rule (`Style/NilComparison`,
+`Layout/SpaceAroundOperators`) — and the severity (`C` for Convention
+here; RuboCop also has `W`arning, `E`rror, and `F`atal levels for more
+serious issues).
+
+## Auto-correction
+
+Many offenses are mechanical enough to fix automatically:
+
+```text
+$ rubocop -A messy.rb
+```
+
+Result:
+
+```ruby
+# frozen_string_literal: true
+
+class Foo
+  def bar(x, y)
+    return if x.nil?
+
+    x + y
+  end
+end
+```
+
+`-A` (autocorrect, including "unsafe" corrections that could
+theoretically change behavior in edge cases — `-a` is the more
+conservative "safe corrections only" flag) rewrote: spacing, `x == nil`
+→ `x.nil?`, the guard clause into modifier-if form, `z = x + y` → the
+value returned directly (since `return` at the end of a method is
+redundant — the last expression's value is returned automatically), and
+added the `frozen_string_literal` magic comment. It did **not** rename
+`x`/`y` to longer names or add class documentation — those require a
+human decision RuboCop won't make unilaterally.
+
+## .rubocop.yml — configuring which rules apply
+
+Not every project agrees with every default rule. A `.rubocop.yml`
+customizes behavior:
+
+```yaml
+# .rubocop.yml
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 3.3
+
+Style/Documentation:
+  Enabled: false   # don't require a comment above every class
+
+Layout/LineLength:
+  Max: 100
+
+Metrics/MethodLength:
+  Max: 15
+  Exclude:
+    - 'spec/**/*'
+```
+
+`Enabled: false` turns a cop off project-wide when the team has
+deliberately decided against it (many teams disable
+`Style/Documentation` — requiring a comment on every class is often more
+noise than signal). `Exclude` scopes a rule away from specific paths —
+long RSpec `describe` blocks routinely exceed a method-length limit
+meant for application code, and it's normal to exempt specs from it.
+
+## Complexity metrics — beyond style
+
+RuboCop also flags structural complexity, not just formatting:
+
+- **`Metrics/MethodLength`**: too many lines in one method — often a
+  sign it's doing more than one job and should be split.
+- **`Metrics/AbcSize`**: Assignment/Branch/Condition complexity — a
+  method with many branches and assignments even if each line is short.
+- **`Metrics/CyclomaticComplexity`**: counts independent paths through a
+  method (`if`/`case`/`&&`/`||` each add one) — a high count means many
+  test cases are needed to cover every path, and the method is a good
+  candidate for extraction into smaller pieces.
+
+These are heuristics, not absolute truths — a long method that's a
+straightforward, linear sequence of steps might be perfectly readable
+despite tripping `MethodLength`. Use the flags as a prompt to look
+closer, not an automatic verdict.
+
+## RuboCop-specific traps
+
+- **Running `-A` (unsafe autocorrect) without reviewing the diff.**
+  Unsafe corrections are labeled that way because they *can* change
+  behavior in edge cases (e.g. some string/frozen-literal corrections
+  interact with mutation) — always diff and review before committing an
+  autocorrect run, especially with `-A` rather than the safer `-a`.
+  Reading the diff between `messy.rb` and the corrected version above is
+  exactly this review step.
+- **A team ignoring RuboCop's suggestions project-wide via a giant
+  `.rubocop_todo.yml`** (generated by `rubocop --auto-gen-config` to
+  grandfather in existing violations) and then never revisiting it —
+  the todo file is meant as a temporary adoption aid, not a permanent
+  exemption list.
+- **Disabling a cop inline with `# rubocop:disable`** to silence a
+  false positive without a comment explaining *why* — six months later,
+  nobody remembers whether the disable is still justified or was a lazy
+  fix for something that should have been refactored instead.
+- **Chasing 100% cop compliance over actual code quality.** A method
+  that's genuinely clearer as one longer block than three fragmented
+  three-line methods shouldn't be split purely to satisfy
+  `Metrics/MethodLength` — use judgment, not blind compliance.
+- **Not pinning the RuboCop version in CI.** RuboCop regularly adds new
+  cops between releases; an unpinned `gem "rubocop"` in a `Gemfile` can
+  suddenly fail CI on an unrelated PR when a new default cop starts
+  flagging existing code that was previously fine.
+
+## Cheat sheet
+
+| Task | Command |
+|---|---|
+| Check a file | `rubocop path/to/file.rb` |
+| Check the whole project | `rubocop` |
+| Safe auto-fix | `rubocop -a` |
+| Full auto-fix (review the diff!) | `rubocop -A` |
+| Generate a todo file for existing violations | `rubocop --auto-gen-config` |
+| Disable a cop for one line | `# rubocop:disable Cop/Name` ... `# rubocop:enable Cop/Name` |
+| Disable a cop project-wide | `Cop/Name: { Enabled: false }` in `.rubocop.yml` |
+| List all available cops | `rubocop --show-cops` |
+
+## Exercise
+
+1. Write a deliberately messy 15-line class (inconsistent spacing, `==
+   nil`, a redundant `return`, an overly long single method) and run
+   `rubocop` against it — read every offense before running any
+   auto-fix.
+2. Run `rubocop -a` (safe only), review what changed, then run `rubocop`
+   again and note which offenses remain — these are the ones requiring
+   a human decision (naming, documentation, splitting a method).
+3. Write a `.rubocop.yml` disabling `Style/Documentation` and setting
+   `Metrics/MethodLength` to `Max: 10`, `Exclude: ['spec/**/*']` — run
+   `rubocop` again and confirm the configuration takes effect.
