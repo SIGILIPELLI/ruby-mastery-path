@@ -17,7 +17,7 @@ each level.
 | [Level 1 · Entry](level-1/index.md) | Language foundations | 9 topics + 1 project |
 | [Level 2 · Intermediate](level-2/index.md) | Idiomatic, testable Ruby | 9 topics + 1 project |
 | [Level 3 · Advanced](level-3/index.md) | Web apps, databases, concurrency | 9 topics + 1 project |
-| Level 4 · Master (coming soon) | Production systems & architecture | 9 topics + 1 capstone |
+| [Level 4 · Master](level-4/index.md) | Production systems & architecture | 9 topics + 1 capstone |
 
 ## How to use this site
 
