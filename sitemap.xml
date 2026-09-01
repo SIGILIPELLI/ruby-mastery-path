@@ -1,187 +1,187 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-         <loc>https://sigilipelli.github.io/ruby-mastery-path/</loc>
+         <loc>https://sigilipelli.github.io/ruby-skillmastery/</loc>
          <lastmod>2026-09-01</lastmod>
     </url>
     <url>
-         <loc>https://sigilipelli.github.io/ruby-mastery-path/privacy/</loc>
+         <loc>https://sigilipelli.github.io/ruby-skillmastery/privacy/</loc>
          <lastmod>2026-09-01</lastmod>
     </url>
     <url>
-         <loc>https://sigilipelli.github.io/ruby-mastery-path/level-1/</loc>
+         <loc>https://sigilipelli.github.io/ruby-skillmastery/level-1/</loc>
          <lastmod>2026-09-01</lastmod>
     </url>
     <url>
-         <loc>https://sigilipelli.github.io/ruby-mastery-path/level-1/01-setup/</loc>
+         <loc>https://sigilipelli.github.io/ruby-skillmastery/level-1/01-setup/</loc>
          <lastmod>2026-09-01</lastmod>
     </url>
     <url>
-         <loc>https://sigilipelli.github.io/ruby-mastery-path/level-1/02-variables-types/</loc>
+         <loc>https://sigilipelli.github.io/ruby-skillmastery/level-1/02-variables-types/</loc>
          <lastmod>2026-09-01</lastmod>
     </url>
     <url>
-         <loc>https://sigilipelli.github.io/ruby-mastery-path/level-1/03-control-flow/</loc>
+         <loc>https://sigilipelli.github.io/ruby-skillmastery/level-1/03-control-flow/</loc>
          <lastmod>2026-09-01</lastmod>
     </url>
     <url>
-         <loc>https://sigilipelli.github.io/ruby-mastery-path/level-1/04-methods/</loc>
+         <loc>https://sigilipelli.github.io/ruby-skillmastery/level-1/04-methods/</loc>
          <lastmod>2026-09-01</lastmod>
     </url>
     <url>
-         <loc>https://sigilipelli.github.io/ruby-mastery-path/level-1/05-arrays-hashes/</loc>
+         <loc>https://sigilipelli.github.io/ruby-skillmastery/level-1/05-arrays-hashes/</loc>
          <lastmod>2026-09-01</lastmod>
     </url>
     <url>
-         <loc>https://sigilipelli.github.io/ruby-mastery-path/level-1/06-strings/</loc>
+         <loc>https://sigilipelli.github.io/ruby-skillmastery/level-1/06-strings/</loc>
          <lastmod>2026-09-01</lastmod>
     </url>
     <url>
-         <loc>https://sigilipelli.github.io/ruby-mastery-path/level-1/07-classes-objects/</loc>
+         <loc>https://sigilipelli.github.io/ruby-skillmastery/level-1/07-classes-objects/</loc>
          <lastmod>2026-09-01</lastmod>
     </url>
     <url>
-         <loc>https://sigilipelli.github.io/ruby-mastery-path/level-1/08-blocks-procs-lambdas/</loc>
+         <loc>https://sigilipelli.github.io/ruby-skillmastery/level-1/08-blocks-procs-lambdas/</loc>
          <lastmod>2026-09-01</lastmod>
     </url>
     <url>
-         <loc>https://sigilipelli.github.io/ruby-mastery-path/level-1/09-gems-bundler/</loc>
+         <loc>https://sigilipelli.github.io/ruby-skillmastery/level-1/09-gems-bundler/</loc>
          <lastmod>2026-09-01</lastmod>
     </url>
     <url>
-         <loc>https://sigilipelli.github.io/ruby-mastery-path/level-1/10-project-todo-app/</loc>
+         <loc>https://sigilipelli.github.io/ruby-skillmastery/level-1/10-project-todo-app/</loc>
          <lastmod>2026-09-01</lastmod>
     </url>
     <url>
-         <loc>https://sigilipelli.github.io/ruby-mastery-path/level-2/</loc>
+         <loc>https://sigilipelli.github.io/ruby-skillmastery/level-2/</loc>
          <lastmod>2026-09-01</lastmod>
     </url>
     <url>
-         <loc>https://sigilipelli.github.io/ruby-mastery-path/level-2/01-oop-deep-dive/</loc>
+         <loc>https://sigilipelli.github.io/ruby-skillmastery/level-2/01-oop-deep-dive/</loc>
          <lastmod>2026-09-01</lastmod>
     </url>
     <url>
-         <loc>https://sigilipelli.github.io/ruby-mastery-path/level-2/02-blocks-procs-lambdas-advanced/</loc>
+         <loc>https://sigilipelli.github.io/ruby-skillmastery/level-2/02-blocks-procs-lambdas-advanced/</loc>
          <lastmod>2026-09-01</lastmod>
     </url>
     <url>
-         <loc>https://sigilipelli.github.io/ruby-mastery-path/level-2/03-exception-handling/</loc>
+         <loc>https://sigilipelli.github.io/ruby-skillmastery/level-2/03-exception-handling/</loc>
          <lastmod>2026-09-01</lastmod>
     </url>
     <url>
-         <loc>https://sigilipelli.github.io/ruby-mastery-path/level-2/04-file-io/</loc>
+         <loc>https://sigilipelli.github.io/ruby-skillmastery/level-2/04-file-io/</loc>
          <lastmod>2026-09-01</lastmod>
     </url>
     <url>
-         <loc>https://sigilipelli.github.io/ruby-mastery-path/level-2/05-testing-rspec/</loc>
+         <loc>https://sigilipelli.github.io/ruby-skillmastery/level-2/05-testing-rspec/</loc>
          <lastmod>2026-09-01</lastmod>
     </url>
     <url>
-         <loc>https://sigilipelli.github.io/ruby-mastery-path/level-2/06-json-apis/</loc>
+         <loc>https://sigilipelli.github.io/ruby-skillmastery/level-2/06-json-apis/</loc>
          <lastmod>2026-09-01</lastmod>
     </url>
     <url>
-         <loc>https://sigilipelli.github.io/ruby-mastery-path/level-2/07-metaprogramming-basics/</loc>
+         <loc>https://sigilipelli.github.io/ruby-skillmastery/level-2/07-metaprogramming-basics/</loc>
          <lastmod>2026-09-01</lastmod>
     </url>
     <url>
-         <loc>https://sigilipelli.github.io/ruby-mastery-path/level-2/08-gem-development/</loc>
+         <loc>https://sigilipelli.github.io/ruby-skillmastery/level-2/08-gem-development/</loc>
          <lastmod>2026-09-01</lastmod>
     </url>
     <url>
-         <loc>https://sigilipelli.github.io/ruby-mastery-path/level-2/09-enumerable-comparable/</loc>
+         <loc>https://sigilipelli.github.io/ruby-skillmastery/level-2/09-enumerable-comparable/</loc>
          <lastmod>2026-09-01</lastmod>
     </url>
     <url>
-         <loc>https://sigilipelli.github.io/ruby-mastery-path/level-2/10-project-weather-cli/</loc>
+         <loc>https://sigilipelli.github.io/ruby-skillmastery/level-2/10-project-weather-cli/</loc>
          <lastmod>2026-09-01</lastmod>
     </url>
     <url>
-         <loc>https://sigilipelli.github.io/ruby-mastery-path/level-3/</loc>
+         <loc>https://sigilipelli.github.io/ruby-skillmastery/level-3/</loc>
          <lastmod>2026-09-01</lastmod>
     </url>
     <url>
-         <loc>https://sigilipelli.github.io/ruby-mastery-path/level-3/01-sinatra/</loc>
+         <loc>https://sigilipelli.github.io/ruby-skillmastery/level-3/01-sinatra/</loc>
          <lastmod>2026-09-01</lastmod>
     </url>
     <url>
-         <loc>https://sigilipelli.github.io/ruby-mastery-path/level-3/02-activerecord/</loc>
+         <loc>https://sigilipelli.github.io/ruby-skillmastery/level-3/02-activerecord/</loc>
          <lastmod>2026-09-01</lastmod>
     </url>
     <url>
-         <loc>https://sigilipelli.github.io/ruby-mastery-path/level-3/03-testing-advanced/</loc>
+         <loc>https://sigilipelli.github.io/ruby-skillmastery/level-3/03-testing-advanced/</loc>
          <lastmod>2026-09-01</lastmod>
     </url>
     <url>
-         <loc>https://sigilipelli.github.io/ruby-mastery-path/level-3/04-metaprogramming-advanced/</loc>
+         <loc>https://sigilipelli.github.io/ruby-skillmastery/level-3/04-metaprogramming-advanced/</loc>
          <lastmod>2026-09-01</lastmod>
     </url>
     <url>
-         <loc>https://sigilipelli.github.io/ruby-mastery-path/level-3/05-design-patterns/</loc>
+         <loc>https://sigilipelli.github.io/ruby-skillmastery/level-3/05-design-patterns/</loc>
          <lastmod>2026-09-01</lastmod>
     </url>
     <url>
-         <loc>https://sigilipelli.github.io/ruby-mastery-path/level-3/06-performance-profiling/</loc>
+         <loc>https://sigilipelli.github.io/ruby-skillmastery/level-3/06-performance-profiling/</loc>
          <lastmod>2026-09-01</lastmod>
     </url>
     <url>
-         <loc>https://sigilipelli.github.io/ruby-mastery-path/level-3/07-concurrency/</loc>
+         <loc>https://sigilipelli.github.io/ruby-skillmastery/level-3/07-concurrency/</loc>
          <lastmod>2026-09-01</lastmod>
     </url>
     <url>
-         <loc>https://sigilipelli.github.io/ruby-mastery-path/level-3/08-rake-tasks/</loc>
+         <loc>https://sigilipelli.github.io/ruby-skillmastery/level-3/08-rake-tasks/</loc>
          <lastmod>2026-09-01</lastmod>
     </url>
     <url>
-         <loc>https://sigilipelli.github.io/ruby-mastery-path/level-3/09-cli-thor-optparse/</loc>
+         <loc>https://sigilipelli.github.io/ruby-skillmastery/level-3/09-cli-thor-optparse/</loc>
          <lastmod>2026-09-01</lastmod>
     </url>
     <url>
-         <loc>https://sigilipelli.github.io/ruby-mastery-path/level-3/10-project-rest-api/</loc>
+         <loc>https://sigilipelli.github.io/ruby-skillmastery/level-3/10-project-rest-api/</loc>
          <lastmod>2026-09-01</lastmod>
     </url>
     <url>
-         <loc>https://sigilipelli.github.io/ruby-mastery-path/level-4/</loc>
+         <loc>https://sigilipelli.github.io/ruby-skillmastery/level-4/</loc>
          <lastmod>2026-09-01</lastmod>
     </url>
     <url>
-         <loc>https://sigilipelli.github.io/ruby-mastery-path/level-4/01-production-patterns/</loc>
+         <loc>https://sigilipelli.github.io/ruby-skillmastery/level-4/01-production-patterns/</loc>
          <lastmod>2026-09-01</lastmod>
     </url>
     <url>
-         <loc>https://sigilipelli.github.io/ruby-mastery-path/level-4/02-background-jobs/</loc>
+         <loc>https://sigilipelli.github.io/ruby-skillmastery/level-4/02-background-jobs/</loc>
          <lastmod>2026-09-01</lastmod>
     </url>
     <url>
-         <loc>https://sigilipelli.github.io/ruby-mastery-path/level-4/03-security-best-practices/</loc>
+         <loc>https://sigilipelli.github.io/ruby-skillmastery/level-4/03-security-best-practices/</loc>
          <lastmod>2026-09-01</lastmod>
     </url>
     <url>
-         <loc>https://sigilipelli.github.io/ruby-mastery-path/level-4/04-testing-at-scale-ci/</loc>
+         <loc>https://sigilipelli.github.io/ruby-skillmastery/level-4/04-testing-at-scale-ci/</loc>
          <lastmod>2026-09-01</lastmod>
     </url>
     <url>
-         <loc>https://sigilipelli.github.io/ruby-mastery-path/level-4/05-deployment-docker/</loc>
+         <loc>https://sigilipelli.github.io/ruby-skillmastery/level-4/05-deployment-docker/</loc>
          <lastmod>2026-09-01</lastmod>
     </url>
     <url>
-         <loc>https://sigilipelli.github.io/ruby-mastery-path/level-4/06-performance-at-scale/</loc>
+         <loc>https://sigilipelli.github.io/ruby-skillmastery/level-4/06-performance-at-scale/</loc>
          <lastmod>2026-09-01</lastmod>
     </url>
     <url>
-         <loc>https://sigilipelli.github.io/ruby-mastery-path/level-4/07-api-design-versioning/</loc>
+         <loc>https://sigilipelli.github.io/ruby-skillmastery/level-4/07-api-design-versioning/</loc>
          <lastmod>2026-09-01</lastmod>
     </url>
     <url>
-         <loc>https://sigilipelli.github.io/ruby-mastery-path/level-4/08-message-queues/</loc>
+         <loc>https://sigilipelli.github.io/ruby-skillmastery/level-4/08-message-queues/</loc>
          <lastmod>2026-09-01</lastmod>
     </url>
     <url>
-         <loc>https://sigilipelli.github.io/ruby-mastery-path/level-4/09-code-quality-rubocop/</loc>
+         <loc>https://sigilipelli.github.io/ruby-skillmastery/level-4/09-code-quality-rubocop/</loc>
          <lastmod>2026-09-01</lastmod>
     </url>
     <url>
-         <loc>https://sigilipelli.github.io/ruby-mastery-path/level-4/10-capstone-project/</loc>
+         <loc>https://sigilipelli.github.io/ruby-skillmastery/level-4/10-capstone-project/</loc>
          <lastmod>2026-09-01</lastmod>
     </url>
 </urlset>
