@@ -1478,6 +1478,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#stretch-goals" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2415,6 +2426,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#stretch-goals" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2887,6 +2909,20 @@ request — tests stay fast and deterministic:</p>
 <p>All 12 examples pass without ever touching the network — exactly the
 behavior you want from a test suite: fast, deterministic, and runnable
 offline or in CI.</p>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>This project chains together three mechanisms covered elsewhere on this
+site as one pipeline: the HTTP request to the weather API blocks on a
+socket read (releasing MRI's GIL so, in a threaded version, other work
+could proceed), the response body is handed to <code>JSON.parse</code>'s
+recursive-descent parser to become a plain Ruby <code>Hash</code>/<code>Array</code> graph with
+no schema enforcement, and every <code>.dig</code> or <code>[]</code> you call afterward is
+ordinary hash-bucket lookup with no special "JSON path" syntax underneath —
+it's the same <code>Hash</code> internals from Module 5, Level 1. When the CLI catches
+<code>JSON::ParserError</code> or <code>Net::HTTP</code> exceptions around the request, that's
+the same stack-unwinding <code>rescue</code> mechanism from the exception-handling
+module: a malformed response or dropped connection raises, MRI walks back
+up the call stack looking for a matching <code>rescue</code>, and your <code>ensure</code> (if
+any) still runs on the way out regardless of which path was taken.</p>
 <h2 id="stretch-goals">Stretch goals<a class="headerlink" href="#stretch-goals" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Add a <code>--units imperial</code> flag that converts Celsius to Fahrenheit before

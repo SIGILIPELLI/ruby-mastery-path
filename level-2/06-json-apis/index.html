@@ -1322,6 +1322,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cheat-sheet" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2338,6 +2349,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cheat-sheet" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2527,6 +2549,21 @@ especially in anything long-running like a web server or background job.</p>
 <a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">JSON</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">body</span><span class="p">)</span>
 <a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="nb">puts</span><span class="w"> </span><span class="n">result</span><span class="o">[</span><span class="s2">&quot;json&quot;</span><span class="o">][</span><span class="s2">&quot;title&quot;</span><span class="o">]</span><span class="w">   </span><span class="c1"># New post</span>
 </code></pre></div>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p><code>JSON.parse</code> is a recursive-descent parser: it walks the input string
+character by character, and every time it encounters <code>{</code>, <code>[</code>, a quote, or
+a digit, it recurses into a sub-parser for that JSON type, building nested
+Ruby <code>Hash</code>/<code>Array</code>/<code>String</code>/<code>Numeric</code> objects as it goes — there's no
+intermediate schema, so the resulting object graph mirrors the JSON's
+nesting exactly. <code>JSON.generate</code> (what <code>to_json</code> calls) walks the opposite
+direction, recursively calling <code>#to_json</code> on nested objects, which is why
+defining a custom <code>to_json</code> method on your own class lets it serialize
+however you like. Underneath <code>Net::HTTP</code> or <code>HTTParty</code>, a request opens a
+TCP socket via the OS, and — like file I/O — the actual <code>read</code>/<code>write</code> on
+that socket releases MRI's GIL, letting other threads run Ruby while your
+thread blocks waiting for the network round trip; this is the mechanism
+that makes concurrent HTTP requests via multiple threads genuinely useful
+in Ruby despite the GIL.</p>
 <h2 id="cheat-sheet">Cheat sheet<a class="headerlink" href="#cheat-sheet" title="Permanent link">&para;</a></h2>
 <table>
 <thead>

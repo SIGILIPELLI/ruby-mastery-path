@@ -1019,6 +1019,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cheat-sheet" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2316,6 +2327,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cheat-sheet" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2450,6 +2472,20 @@ exists.</p>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>bundle<span class="w"> </span>install<span class="w"> </span>--without<span class="w"> </span><span class="nb">test</span><span class="w">   </span><span class="c1"># skip the :test group, e.g. in production</span>
 </code></pre></div>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p><code>require</code> and <code>require_relative</code> aren't preprocessor includes — each call
+asks <code>Kernel#require</code> to check <code>$LOADED_FEATURES</code> (an array of already-loaded
+absolute paths); if the file isn't there, Ruby reads it, compiles it to
+YARV bytecode, evaluates the whole file top to bottom (which is how
+<code>class</code>/<code>def</code>/constant definitions actually take effect), then records the
+path so re-requiring the same file is a no-op. RubyGems hooks into this by
+adding each installed gem's <code>lib/</code> directory to <code>$LOAD_PATH</code> so <code>require
+"gem_name"</code> can find it. Bundler goes one step further: <code>Gemfile.lock</code>
+pins exact resolved versions of every gem and its transitive dependencies,
+and <code>bundle exec</code> (or <code>Bundler.require</code> in <code>bundle/setup</code>) rewrites
+<code>$LOAD_PATH</code> at runtime to point <em>only</em> at those locked versions — which is
+why running a script without <code>bundle exec</code> can silently load a different,
+system-installed version of a gem than the one your <code>Gemfile.lock</code> pinned.</p>
 <h2 id="cheat-sheet">Cheat sheet<a class="headerlink" href="#cheat-sheet" title="Permanent link">&para;</a></h2>
 <table>
 <thead>

@@ -1620,6 +1620,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cheat-sheet" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2294,6 +2305,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cheat-sheet" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2497,6 +2519,24 @@ originally written — which is exactly what lets you write <code>tag "h1",
   plain local variable referenced inside still means whatever it meant
   outside.</li>
 </ul>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p><code>method_missing</code> is the last stop in MRI's method lookup, not a special
+case bolted on top of it: when the ancestor-chain walk (class, then
+included modules, then superclass...) fails to find a matching method
+anywhere, MRI's dispatch mechanism — instead of immediately raising
+<code>NoMethodError</code> — calls <code>method_missing</code> on the receiver if one is defined,
+passing the attempted method name and arguments; the default
+<code>BasicObject#method_missing</code> simply raises the error you're used to seeing.
+This is why overriding <code>method_missing</code> (and pairing it with
+<code>respond_to_missing?</code>, which callers like <code>respond_to?</code> and <code>method</code>
+consult) lets an object appear to respond to methods that were never
+actually defined anywhere in its ancestor chain. <code>define_method</code> and
+<code>class_eval</code>/<code>instance_eval</code> don't create some parallel "dynamic" method
+type — they populate the exact same per-class method table that <code>def</code>
+populates at parse time; the only difference is <em>when</em> the method table
+gets the entry (compile time for <code>def</code>, arbitrary runtime for
+<code>define_method</code>), which is why a <code>define_method</code>-defined method is
+indistinguishable from a hand-written one once it exists.</p>
 <h2 id="cheat-sheet">Cheat sheet<a class="headerlink" href="#cheat-sheet" title="Permanent link">&para;</a></h2>
 <table>
 <thead>

@@ -834,6 +834,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cheat-sheet" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2338,6 +2349,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cheat-sheet" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2464,6 +2486,20 @@ reassign one.</p>
 <p>Symbols look similar to strings but are immutable and memory-efficient —
 Ruby code idiomatically uses them for things like hash keys and fixed status
 values rather than plain strings.</p>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>Every value in Ruby — even <code>1</code>, <code>true</code>, or <code>nil</code> — is an instance of a
+class, and a variable is never the object itself; it's a reference (an
+object ID) pointing at an object living on the heap. <code>x = "hi"</code> creates a
+<code>String</code> object and binds the label <code>x</code> to it; <code>y = x</code> copies the
+<em>reference</em>, not the string, so <code>y &lt;&lt; "!"</code> mutates the same object <code>x</code>
+points at. Small integers are the one exception: MRI represents <code>Fixnum</code>-range
+integers as <strong>immediates</strong> — the value is packed directly into the
+reference itself (tagged with a low bit) so no heap object or GC tracking is
+needed at all, which is why arithmetic on small integers is essentially free.
+Symbols work similarly: <code>:name</code> is interned once into a global symbol table,
+so every occurrence of <code>:name</code> in your program is the <em>same</em> object
+(<code>:name.object_id == :name.object_id</code> is always true), unlike two separate
+string literals <code>"name"</code> which are distinct objects even with equal content.</p>
 <h2 id="cheat-sheet">Cheat sheet<a class="headerlink" href="#cheat-sheet" title="Permanent link">&para;</a></h2>
 <table>
 <thead>

@@ -1968,6 +1968,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cheat-sheet" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2294,6 +2305,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cheat-sheet" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2463,6 +2485,26 @@ disables the automatic escaping that was protecting you.</p>
   server-controlled state (a database column set by an admin action),
   never in something the request itself supplied.</li>
 </ul>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>SQL injection and shell injection are the same underlying failure viewed
+through different interpreters: both happen when untrusted string data is
+concatenated into a command <em>before</em> that command's own parser runs, so
+attacker-supplied syntax (a <code>'</code> closing a SQL string literal, a <code>;</code>
+separating shell commands) is interpreted as structure rather than data.
+Parameterized queries (<code>where("name = ?", user_input)</code>) avoid this because
+the database driver sends the query template and the value as <em>separate</em>
+protocol messages — the value never passes through the SQL parser at all,
+so it cannot inject syntax no matter what it contains. Ruby's <code>Kernel#system</code>
+and backtick invocation face the identical problem: passing a single
+interpolated string routes it through <code>/bin/sh</code> for parsing, while passing
+an array of arguments (<code>system("rm", "-rf", user_path)</code>) invokes <code>execve</code>
+directly, bypassing the shell's parser entirely. Mass-assignment
+vulnerabilities exploit ActiveRecord's dynamic attribute methods (Level 3):
+if every column got a public setter automatically and you blindly pass
+<code>params</code> to <code>update</code>, you're letting a client set columns like <code>admin</code> that
+were never meant to be user-writable — <code>strong_parameters</code>' <code>permit</code> exists
+specifically to filter the hash before it ever reaches those generated
+setters.</p>
 <h2 id="cheat-sheet">Cheat sheet<a class="headerlink" href="#cheat-sheet" title="Permanent link">&para;</a></h2>
 <table>
 <thead>

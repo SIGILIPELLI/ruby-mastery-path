@@ -1912,6 +1912,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cheat-sheet" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2294,6 +2305,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cheat-sheet" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2469,6 +2491,24 @@ testable class.</p>
   refactor of the model layer; prefer testing against a real, disposable
   database as shown in this module's example.</li>
 </ul>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>A "production pattern" like a connection pool or circuit breaker is
+ultimately just careful management of two things MRI gives you directly:
+threads/fibers for concurrency and objects for state. A connection pool
+(e.g., <code>ConnectionPool.new</code>) wraps a <code>Queue</code> (a thread-safe FIFO built on a
+<code>Mutex</code> + <code>ConditionVariable</code>) holding pre-created connection objects;
+checking a connection out pops from the queue (blocking the calling thread
+via the condition variable if empty, which releases the GVL exactly like
+any blocking wait), and checking it back in pushes it back and wakes one
+waiter. A circuit breaker is just a small state machine (closed/open/
+half-open) stored in an instance variable, guarded by a <code>Mutex</code> so
+concurrent threads don't race on the state transition — the "breaking"
+itself is nothing more than an <code>if</code> that raises early instead of attempting
+the wrapped call, informed by counters incremented on each success/failure.
+None of this requires anything beyond primitives already covered in
+Level 3's concurrency module — production resilience patterns are
+compositions of <code>Mutex</code>, <code>Queue</code>, and plain object state, not a separate
+runtime feature.</p>
 <h2 id="cheat-sheet">Cheat sheet<a class="headerlink" href="#cheat-sheet" title="Permanent link">&para;</a></h2>
 <table>
 <thead>

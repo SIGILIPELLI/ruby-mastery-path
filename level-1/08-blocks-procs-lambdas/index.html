@@ -991,6 +991,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cheat-sheet" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2316,6 +2327,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cheat-sheet" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2476,6 +2498,21 @@ blocks. Both are functionally identical.</p>
   behavior (strict arity, <code>return</code> scoped to itself) — the safer default
   when in doubt.</li>
 </ul>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>A block is not itself an object at the bytecode level — YARV compiles it
+into its own private bytecode sequence, attached to the method call, that
+gets invoked with a <code>yield</code> instruction. A <code>Proc</code> or <code>lambda</code>, on the other
+hand, is a real object wrapping two things: that same bytecode plus a
+captured <strong>binding</strong> — a reference to the surrounding scope's local
+variables, self, and stack frame at the moment it was created. That's why a
+block/proc can read and mutate a local variable from its enclosing method
+even after being passed elsewhere: it isn't copying the variable, it holds
+a live reference to the same binding. <code>lambda</code>s differ from <code>proc</code>s in two
+concrete VM-level ways: a lambda checks argument count strictly (raising
+<code>ArgumentError</code> on mismatch, just like a method call), and <code>return</code> inside
+a lambda unwinds only the lambda's own frame, whereas <code>return</code> inside a
+<code>proc</code> attempts to unwind the <em>enclosing method's</em> frame — which raises
+<code>LocalJumpError</code> if that method has already returned.</p>
 <h2 id="cheat-sheet">Cheat sheet<a class="headerlink" href="#cheat-sheet" title="Permanent link">&para;</a></h2>
 <table>
 <thead>

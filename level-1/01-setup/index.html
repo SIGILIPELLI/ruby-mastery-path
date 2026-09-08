@@ -773,6 +773,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#choosing-an-editor" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2272,6 +2283,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#choosing-an-editor" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2379,6 +2401,22 @@ would print <code>nil</code> as an empty line.</p>
 </code></pre></div>
 <p>Even numbers, strings, and <code>nil</code> are full objects with methods you can call
 on them — there's no separate "primitive type" concept like in Java or C.</p>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>When you type <code>ruby script.rb</code>, you're invoking <strong>MRI</strong> (Matz's Ruby
+Interpreter, aka CRuby) — the reference implementation almost everyone means
+when they say "Ruby". MRI compiles your source into <strong>YARV bytecode</strong>
+(Yet Another Ruby VM, introduced in Ruby 1.9) — not machine code, but a
+compact instruction set for a stack-based virtual machine. You can see it
+yourself:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>$ ruby --dump=insns -e &#39;puts 1 + 2&#39;
+</code></pre></div>
+<p>That bytecode runs inside a single OS process. MRI has a <strong>Global
+Interpreter Lock (GIL)</strong>, so even if you spawn multiple Ruby threads, only
+one thread executes Ruby bytecode at a time — threads are useful for I/O-bound
+work, not CPU parallelism (Module 7, Level 3 covers this in depth). <code>irb</code>
+is just a Ruby program itself: it reads a line, wraps it enough to parse,
+evaluates it through the same YARV pipeline, and prints the result — a
+read-eval-print loop with no magic beyond what <code>eval</code> already gives you.</p>
 <h2 id="choosing-an-editor">Choosing an editor<a class="headerlink" href="#choosing-an-editor" title="Permanent link">&para;</a></h2>
 <p>VS Code (with the Ruby extension) or RubyMine both work well. The editor
 matters far less than getting comfortable with <code>irb</code> for quick checks and

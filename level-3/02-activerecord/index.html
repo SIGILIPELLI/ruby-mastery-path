@@ -1575,6 +1575,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cheat-sheet" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2316,6 +2327,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cheat-sheet" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2483,6 +2505,23 @@ matters enormously once N is in the thousands.</p>
   data written on one is invisible to the other. Use a real file (even a
   temp one) if you need multiple connections to see the same data.</li>
 </ul>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p><code>User.where(active: true)</code> doesn't hit the database immediately — it
+returns a <code>Relation</code> object that lazily accumulates query fragments
+(<code>WHERE</code>, <code>ORDER BY</code>, <code>LIMIT</code> clauses as an internal AST-like structure) and
+only fires the actual SQL when something forces evaluation: iterating it,
+calling <code>.to_a</code>, <code>.first</code>, or printing it. This laziness is why you can
+chain <code>User.where(active: true).order(:name).limit(10)</code> and get exactly one
+SQL query, not three. ActiveRecord builds each model's attribute methods
+(<code>user.name</code>, <code>user.name=</code>) dynamically at class-load time by introspecting
+the database's schema (<code>information_schema</code> or <code>PRAGMA table_info</code> under
+the hood) via <code>define_method</code> — this is why a model class has no explicit
+<code>attr_accessor</code> for its columns yet still responds to them, and why adding
+a column to the table without restarting the app can leave stale attribute
+methods until the schema cache reloads. Associations like <code>has_many</code> also
+generate lazy <code>Relation</code>s, and calling <code>user.posts</code> twice re-queries unless
+you've eager-loaded with <code>includes</code>, which batches what would otherwise be
+an N+1 query pattern into two queries total.</p>
 <h2 id="cheat-sheet">Cheat sheet<a class="headerlink" href="#cheat-sheet" title="Permanent link">&para;</a></h2>
 <table>
 <thead>

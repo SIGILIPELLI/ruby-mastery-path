@@ -1603,6 +1603,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cheat-sheet" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2316,6 +2327,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cheat-sheet" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2502,6 +2524,22 @@ specs are slower and touch more code per failure.</p>
   request spec file that requires it pays that cost — keep expensive
   setup behind lazy initialization or <code>before(:suite)</code>.</li>
 </ul>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>A test double (<code>instance_double</code>, <code>double</code>) is a real Ruby object created
+at runtime with a singleton class whose method table is populated on the
+fly from your <code>allow(...).to receive(...)</code> calls — RSpec uses
+<code>define_singleton_method</code> internally to attach exactly the methods you
+stub, and <code>instance_double</code> additionally reflects on the real class via
+<code>.instance_methods</code> to verify at test time that the methods you're stubbing
+actually exist on the real object, catching typos that a plain <code>double</code>
+would silently allow. Mocking a method (<code>expect(obj).to receive(:foo)</code>)
+temporarily replaces the method in <code>obj</code>'s singleton class for the duration
+of the example, then RSpec restores the original method afterward — which
+is why mocks never leak between examples even though they're implemented
+by literally rewriting the method table. Database-backed test suites that
+wrap each example in a transaction rely on the fact that a <code>ROLLBACK</code> after
+the example undoes every write the example made — the app code doesn't
+need to know it's being tested for this to work.</p>
 <h2 id="cheat-sheet">Cheat sheet<a class="headerlink" href="#cheat-sheet" title="Permanent link">&para;</a></h2>
 <table>
 <thead>

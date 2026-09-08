@@ -1743,6 +1743,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cheat-sheet" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2316,6 +2327,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cheat-sheet" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2478,6 +2500,21 @@ expand.</p>
   "newer" and triggers a rebuild — useful to know when a build seems to
   rerun for no visible reason.</li>
 </ul>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>A <code>Rakefile</code> is plain Ruby, evaluated top to bottom exactly like any
+<code>require</code>d file — <code>task :name do ... end</code> is a method call that registers
+a <code>Rake::Task</code> object (name, prerequisites, and the block) into a global
+task registry; it does <strong>not</strong> run the block immediately. Running
+<code>rake name</code> looks the task up in that registry, resolves its <code>prerequisite</code>
+tasks recursively (building a dependency graph and running each
+prerequisite's block first, but only once even if multiple tasks depend on
+it — Rake tracks which tasks have already been "invoked" this run), and
+only then executes the named task's own block. <code>namespace</code> blocks work by
+prefixing whatever tasks are defined inside them with <code>namespace:name</code>
+before registering — it's a naming convention layered onto the same
+registry, not a separate mechanism. Because a Rakefile is just Ruby, you
+can freely mix ordinary method calls, <code>require</code>s, and conditionals into
+task bodies — there is no restricted "task language" underneath.</p>
 <h2 id="cheat-sheet">Cheat sheet<a class="headerlink" href="#cheat-sheet" title="Permanent link">&para;</a></h2>
 <table>
 <thead>

@@ -1659,6 +1659,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cheat-sheet" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2316,6 +2327,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cheat-sheet" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2516,6 +2538,22 @@ dependency injection with a regular object is easier to test).</p>
   a real object with explicit dependencies once the block grows past a
   couple of lines.</li>
 </ul>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>Most "patterns" from statically-typed languages collapse into much less
+ceremony in Ruby precisely because of the mechanisms covered elsewhere on
+this site. A classic Strategy pattern is often just passing a <code>Proc</code> or
+block — no interface, no strategy classes, because a block already <em>is</em> an
+object closing over behavior. A Singleton is commonly just
+<code>require "singleton"</code> mixing in a module that overrides <code>new</code> to raise and
+defines <code>.instance</code> to memoize a single object in a class-level variable —
+no special language feature, just method redefinition on the singleton
+class. The Observer pattern (<code>require "observer"</code>) works by having
+<code>add_observer</code> push objects into an internal array, and <code>notify_observers</code>
+iterate that array calling <code>update</code> on each — ordinary <code>Enumerable</code>-style
+iteration, not a compiler-level event system. Decorator-style patterns lean
+on <code>SimpleDelegator</code> or <code>method_missing</code> (Level 3's metaprogramming module)
+to forward unhandled calls to a wrapped object, intercepting method lookup
+itself rather than reimplementing every method by hand.</p>
 <h2 id="cheat-sheet">Cheat sheet<a class="headerlink" href="#cheat-sheet" title="Permanent link">&para;</a></h2>
 <table>
 <thead>

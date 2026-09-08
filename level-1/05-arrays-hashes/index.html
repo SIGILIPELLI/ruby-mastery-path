@@ -896,6 +896,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cheat-sheet" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2294,6 +2305,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cheat-sheet" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2429,6 +2451,21 @@
 </tr>
 </tbody>
 </table>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>A Ruby <code>Array</code> is a contiguous, growable buffer of object references (like
+a <code>Vec&lt;VALUE&gt;</code> in the C source), not a linked list — that's why <code>arr[5]</code> is
+O(1) but <code>arr.unshift(x)</code> is O(n) (everything has to shift right). Ruby
+over-allocates capacity on growth (similar to how <code>ArrayList</code>/<code>Vec</code> grow in
+other languages), so repeated <code>push</code> calls are amortized O(1) even though
+occasional reallocations happen. A <code>Hash</code> is a genuine hash table: MRI calls
+<code>#hash</code> and <code>#eql?</code> on each key to place it in a bucket, and since Ruby 1.9
+hashes also maintain a doubly-linked <strong>insertion order</strong> list alongside the
+buckets — which is why iterating a Hash always yields keys in the order
+they were first inserted, a guarantee (not an implementation accident) since
+Ruby 1.9. Using a mutable object like an <code>Array</code> as a hash key is dangerous
+precisely because its <code>#hash</code> value can change after insertion, breaking
+the bucket it lives in — symbols and frozen strings are safe because their
+hash value never changes.</p>
 <h2 id="cheat-sheet">Cheat sheet<a class="headerlink" href="#cheat-sheet" title="Permanent link">&para;</a></h2>
 <table>
 <thead>

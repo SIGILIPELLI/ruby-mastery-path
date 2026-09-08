@@ -1238,6 +1238,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cheat-sheet" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2338,6 +2349,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cheat-sheet" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2544,6 +2566,22 @@ being handled — useful for logging without swallowing the error:</p>
 <a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="c1"># Logging error: boom</span>
 <a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a><span class="c1"># Caller saw: boom</span>
 </code></pre></div>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p><code>raise</code> doesn't return control flow normally — it triggers <strong>stack
+unwinding</strong>: MRI walks back up the call stack frame by frame, at each level
+checking whether that frame is inside a <code>begin/rescue</code> (or method-level
+<code>rescue</code>) whose <code>rescue</code> clause's class list matches (via <code>===</code>, so
+subclasses of <code>StandardError</code> match a bare <code>rescue</code>) the raised exception's
+class. The first matching frame's <code>rescue</code> body runs; if none match, the
+process terminates and prints the backtrace, which is really just the list
+of frames the unwinder walked through, each holding its file/line/method
+name. <code>ensure</code> blocks are guaranteed to run during this unwind regardless
+of whether an exception was raised, returned from, or even <code>throw</code>n past —
+MRI implements this by registering ensure handlers on the frame itself, so
+unwinding through a frame always executes its ensure code before continuing
+further up the stack. This is also why raising inside a <code>rescue</code> block
+replaces <code>$!</code> and the original exception becomes accessible only via
+<code>cause</code>, forming an exception-chain linked list.</p>
 <h2 id="cheat-sheet">Cheat sheet<a class="headerlink" href="#cheat-sheet" title="Permanent link">&para;</a></h2>
 <table>
 <thead>

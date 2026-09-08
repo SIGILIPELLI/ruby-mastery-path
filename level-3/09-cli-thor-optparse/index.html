@@ -1738,6 +1738,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cheat-sheet" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2250,6 +2261,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cheat-sheet" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2404,6 +2426,22 @@ the matching method with the remaining positional arguments.</p>
   <code>if</code> check but prints differently if you ever inspect <code>options[:shout]</code>
   directly.</li>
 </ul>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p><code>OptionParser</code> builds a table mapping flag strings (<code>-v</code>, <code>--verbose</code>) to
+handler blocks, then does a single linear pass over <code>ARGV</code>, matching each
+token against that table and calling the matching block (or, for flags with
+no <code>--</code>/<code>-</code> prefix, treating it as a positional argument) — <code>ARGV</code> itself
+is just a global <code>Array</code> of the strings the shell split your command line
+into, populated by MRI before your script's first line even runs. Thor
+builds on the same idea but at the <em>class</em> level: methods on your <code>Thor</code>
+subclass become subcommands via <code>method_added</code> (a hook MRI calls
+automatically every time a method is defined on a class, letting Thor
+intercept the definition and register it), and <code>desc</code>/<code>option</code> calls
+immediately preceding a method attach metadata to it that the <em>next</em>
+<code>method_added</code> callback picks up and associates with that specific command.
+This is metaprogramming you'll see generalized in Level 3's dedicated
+metaprogramming module — Thor's DSL is a practical, real-world use of
+hooks most people first meet as an abstract concept.</p>
 <h2 id="cheat-sheet">Cheat sheet<a class="headerlink" href="#cheat-sheet" title="Permanent link">&para;</a></h2>
 <table>
 <thead>

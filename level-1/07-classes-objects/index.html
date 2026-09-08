@@ -952,6 +952,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cheat-sheet" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2294,6 +2305,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cheat-sheet" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2469,6 +2491,20 @@ class uses one of these instead of writing them by hand.</p>
 <a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a><span class="n">rex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">Dog</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;Rex&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Labrador&quot;</span><span class="p">)</span>
 <a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a><span class="nb">puts</span><span class="w"> </span><span class="n">rex</span><span class="o">.</span><span class="n">describe</span><span class="w">   </span><span class="c1"># Rex is a Labrador</span>
 </code></pre></div>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>Every object in Ruby carries an invisible pointer to its class, and every
+class is itself an object — an instance of <code>Class</code>, which is itself an
+instance of <code>Class</code>. When you write <code>class Dog; end</code>, MRI allocates a
+<code>Class</code> object and stores a method table (a hash from method name to
+bytecode/C-function pointer) directly on it. Calling <code>dog.bark</code> doesn't
+search <code>dog</code> itself for a <code>bark</code> method — instance variables and methods
+live in different places: <code>@name</code> is stored in a slot table on the
+<em>instance</em>, while <code>bark</code>'s implementation lives in the <em>class's</em> method
+table, found via the ancestor-chain walk described elsewhere in this site.
+<code>attr_accessor :name</code> is just Ruby code that defines two methods
+(<code>name</code> and <code>name=</code>) on the class at load time using <code>define_method</code>
+internally — there's no special compiler magic, you could write those two
+<code>def</code>s by hand and get identical behavior.</p>
 <h2 id="cheat-sheet">Cheat sheet<a class="headerlink" href="#cheat-sheet" title="Permanent link">&para;</a></h2>
 <table>
 <thead>

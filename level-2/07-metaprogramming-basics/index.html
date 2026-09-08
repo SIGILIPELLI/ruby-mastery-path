@@ -1339,6 +1339,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cheat-sheet" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2316,6 +2327,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cheat-sheet" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2512,6 +2534,24 @@ inside <code>method_missing</code> can be genuinely confusing to track down beca
 the method "doesn't exist" anywhere you can <code>grep</code> for it. Use these tools
 when the boilerplate they eliminate is large and repetitive — not as a
 default way to write every class.</p>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p><code>define_method</code>, <code>send</code>, and <code>class_eval</code> all operate on the exact same
+method table that ordinary <code>def</code> populates — there is no separate "dynamic
+method" storage in MRI. <code>class_eval</code> works by temporarily changing what
+<code>self</code> and the default definee (where a bare <code>def</code> would land) refer to
+inside the block, evaluating your code as if it were written literally
+inside <code>class Foo; end</code> — which is why <code>attr_accessor</code> and <code>def</code> both work
+normally inside a <code>class_eval</code> block. <code>send</code> bypasses Ruby's usual
+<code>private</code>/<code>protected</code> visibility checks entirely because those checks
+happen at the call site during method dispatch, not inside the method
+lookup itself — <code>send</code> performs the identical ancestor-chain lookup as a
+normal call but skips the visibility gate, which is exactly why it's both
+useful for testing private methods and dangerous in production code.
+<code>respond_to?</code> and <code>instance_variable_get</code>/<code>set</code> are introspection into the
+literal same data structures method dispatch uses: the method table for
+the former, and the per-object instance-variable slot table for the
+latter — there's no reflection layer sitting on top, you're reading MRI's
+own bookkeeping directly.</p>
 <h2 id="cheat-sheet">Cheat sheet<a class="headerlink" href="#cheat-sheet" title="Permanent link">&para;</a></h2>
 <table>
 <thead>

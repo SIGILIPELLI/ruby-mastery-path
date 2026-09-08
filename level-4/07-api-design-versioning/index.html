@@ -2080,6 +2080,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cheat-sheet" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2294,6 +2305,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cheat-sheet" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2459,6 +2481,23 @@ parsing a different shape per status code or per endpoint.</p>
   version, breaking every consumer with zero warning and no rollback
   path other than reverting the deploy.</li>
 </ul>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>URL-based API versioning (<code>/v1/users</code>) and header-based versioning
+(<code>Accept: application/vnd.myapp.v1+json</code>) both resolve to the same
+underlying mechanism in a Rack-based app: the router inspects some part of
+the request (<code>env["PATH_INFO"]</code> or <code>env["HTTP_ACCEPT"]</code>) and dispatches to
+a different controller/handler class based on it — there's no
+framework-level concept of "a version," just conditional routing on request
+data, exactly like the route-matching walk in Sinatra's routing table.
+Serializer objects (turning a model into a version-specific JSON shape)
+work by calling <code>#to_json</code> or building a hash explicitly rather than
+relying on ActiveRecord's default <code>as_json</code>, which is precisely why adding
+a new API version rarely requires touching the model — the model's
+dynamically-generated attribute methods (from Level 3) stay constant while
+the serialization layer that reads them changes per version. Deprecation
+headers are just ordinary response headers your controller code sets
+before returning — there's no separate "deprecation system," it's the same
+<code>[status, headers, body]</code> Rack triple every response is built from.</p>
 <h2 id="cheat-sheet">Cheat sheet<a class="headerlink" href="#cheat-sheet" title="Permanent link">&para;</a></h2>
 <table>
 <thead>

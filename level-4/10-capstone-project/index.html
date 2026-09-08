@@ -2217,6 +2217,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#stretch-goals" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2384,6 +2395,17 @@
     <span class="md-ellipsis">
       
         What this project demonstrates from Level 4
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
       
     </span>
   </a>
@@ -2669,6 +2691,22 @@ handlers (and their JSON envelope) actually run instead.</p>
 <li><strong>Module 9</strong>: a <code>.rubocop.yml</code>-governed style pass integrated into the
   same CI job as the test suite.</li>
 </ul>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>This capstone's CI/deploy pipeline is the composition of nearly every
+mechanism covered across Level 4: each CI job runs in its own container
+(its own OS process, its own GVL, isolated filesystem via namespaces), the
+test suite inside relies on the same generational mark-and-sweep GC and
+ActiveRecord lazy-relation query building used throughout, and the eventual
+production deploy runs your app as one or more worker processes behind a
+server like Puma, each with an independent GVL, scaling horizontally
+exactly as described in the performance-at-scale module. Background jobs
+triggered by the API cross a genuine process boundary into a separate
+worker via a durable queue (Redis or a message broker), which is why job
+arguments must serialize to plain data rather than carrying live object
+references. Every layer — routing, ORM, background processing, and the
+container runtime itself — ultimately rests on the same primitives this
+whole site has been building toward since Level 1: objects, method lookup
+via the ancestor chain, and MRI's single-GVL-per-process execution model.</p>
 <h2 id="stretch-goals">Stretch goals<a class="headerlink" href="#stretch-goals" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Add a <code>DELETE /tasks/:id</code> route using <code>TaskService.find!</code> (reusing the

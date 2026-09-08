@@ -1210,6 +1210,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cheat-sheet" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2338,6 +2349,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cheat-sheet" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2519,6 +2541,24 @@ If that method has already finished, Ruby raises <code>LocalJumpError</code>:</p
 <code>return</code> only ever exits the lambda itself — one more reason lambdas are the
 safer default when a callable is going to be stored or passed around rather
 than used immediately.</p>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>Every block, proc, and lambda carries a <strong>binding</strong> — a live reference to
+the local-variable table, <code>self</code>, and method-visibility context of the
+scope where it was written, not a snapshot copied at creation time. This is
+why <code>Proc.new { x += 1 }</code> continues to see updates to <code>x</code> made by code
+outside the proc after the proc is created, and vice versa — both sides
+are reading and writing the exact same variable slot in the same binding
+object. <code>instance_eval</code>/<code>instance_exec</code> temporarily reassign <code>self</code> inside
+the block to a different receiver while keeping the <em>same</em> captured
+binding for local variables — this dual nature (borrowed <code>self</code>, original
+locals) is exactly what lets DSLs like RSpec's <code>describe</code> blocks call
+methods on an implicit receiver while still reading local variables from
+the surrounding test file. <code>&amp;block</code> argument syntax performs an actual
+conversion at the call boundary: passing a <code>Proc</code> with <code>&amp;</code> calls <code>to_proc</code>
+if needed and marks it for <code>yield</code>-style invocation, while capturing an
+implicit block as <code>&amp;block</code> in a method signature calls the inverse
+conversion, wrapping the block's raw bytecode reference in a first-class
+<code>Proc</code> object.</p>
 <h2 id="cheat-sheet">Cheat sheet<a class="headerlink" href="#cheat-sheet" title="Permanent link">&para;</a></h2>
 <table>
 <thead>

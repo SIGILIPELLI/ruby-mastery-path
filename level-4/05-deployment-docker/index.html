@@ -2024,6 +2024,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cheat-sheet" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2294,6 +2305,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cheat-sheet" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2485,6 +2507,22 @@ where each service is reachable by its service name.</p>
   bloating it and potentially leaking local secrets that happened to be
   in an untracked <code>.env</code> file into a shipped image.</li>
 </ul>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>A Docker image layer is a filesystem diff, and each instruction in your
+Dockerfile (<code>RUN</code>, <code>COPY</code>) creates one — this is why ordering matters for
+build caching: Docker hashes each instruction plus its inputs, and reuses a
+cached layer only if every prior instruction's hash also matched, so
+<code>COPY Gemfile* / bundle install</code> before <code>COPY . .</code> lets Docker reuse the
+(often slow) <code>bundle install</code> layer whenever only application code changed,
+not the Gemfile. Inside the running container, your Ruby process is just an
+ordinary MRI process — the container gives it an isolated view of
+processes, network, and filesystem via Linux namespaces and cgroups, but
+MRI itself has no idea it's containerized; the GVL, GC, and thread
+scheduler behave identically to running outside Docker. Multi-stage builds
+matter because gems with native C extensions need build tools (a compiler,
+headers) only during <code>bundle install</code>; copying just the compiled
+<code>vendor/bundle</code> output into a slim final-stage image avoids shipping the
+entire build toolchain in your production image, shrinking it substantially.</p>
 <h2 id="cheat-sheet">Cheat sheet<a class="headerlink" href="#cheat-sheet" title="Permanent link">&para;</a></h2>
 <table>
 <thead>

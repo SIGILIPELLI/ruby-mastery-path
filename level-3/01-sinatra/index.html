@@ -1547,6 +1547,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cheat-sheet" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2316,6 +2327,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cheat-sheet" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2481,6 +2503,22 @@ the route block below never runs if the <code>before</code> filter halts first.<
   permitted_hosts: [] }</code> (fine for tests/dev, tighten it for real
   deployments).</li>
 </ul>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>Sinatra is not a separate server — it's a thin DSL over <strong>Rack</strong>, the
+common interface nearly every Ruby web server and framework (including
+Rails) speaks: a Rack app is any object responding to <code>#call(env)</code> that
+returns a <code>[status, headers, body]</code> triple. <code>get "/path" do ... end</code>
+registers a route by storing the pattern and block in an internal array;
+on each incoming request, Sinatra's own <code>#call</code> method (which <em>is</em> the Rack
+entry point) walks that array top-to-bottom looking for the first pattern
+that matches the request path and method, then evaluates your block in the
+context of a per-request instance — which is why every route handler has
+access to <code>params</code>, <code>request</code>, and instance variables scoped to just that
+one request, with no cross-request leakage. Under something like
+<code>rackup</code>/Puma, each incoming connection typically gets its own thread (or
+process, in a forking server), so two simultaneous requests to the same
+Sinatra app really are handled by two different <code>self</code> instances even
+though they share the same loaded class and route table.</p>
 <h2 id="cheat-sheet">Cheat sheet<a class="headerlink" href="#cheat-sheet" title="Permanent link">&para;</a></h2>
 <table>
 <thead>

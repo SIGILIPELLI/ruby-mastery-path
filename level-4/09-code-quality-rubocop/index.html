@@ -2125,6 +2125,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cheat-sheet" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2265,6 +2276,17 @@
     <span class="md-ellipsis">
       
         RuboCop-specific traps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
       
     </span>
   </a>
@@ -2460,6 +2482,22 @@ closer, not an automatic verdict.</p>
   suddenly fail CI on an unrelated PR when a new default cop starts
   flagging existing code that was previously fine.</li>
 </ul>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>RuboCop doesn't pattern-match your source text — it uses Ruby's own
+<code>Ripper</code> (or the <code>parser</code> gem) to build a full <strong>Abstract Syntax Tree</strong> from
+your file, the same kind of structural representation MRI's own compiler
+builds internally before generating YARV bytecode. Each cop is a small
+visitor that walks specific node types in that tree (a <code>send</code> node for
+method calls, a <code>def</code> node for method definitions) and checks structural
+properties — which is why RuboCop can reliably flag "method too long" by
+counting AST lines between a <code>def</code> and <code>end</code> node, but can be fooled by
+things that look identical in the AST but differ only in your intent.
+Auto-correction works by recording the exact source-range offsets of each
+flagged node and generating textual replacements at those offsets, then
+rewriting the file — it's mechanical text surgery guided by the AST's
+position data, not a re-interpretation of your logic, which is exactly why
+<code>-A</code> autofixes are safe for style violations (whitespace, naming) but
+riskier for anything that could change runtime behavior.</p>
 <h2 id="cheat-sheet">Cheat sheet<a class="headerlink" href="#cheat-sheet" title="Permanent link">&para;</a></h2>
 <table>
 <thead>

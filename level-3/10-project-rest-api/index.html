@@ -1799,6 +1799,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#stretch-goals" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2305,6 +2316,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#stretch-goals" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2536,6 +2558,22 @@ examples once the suite grows.</p>
 <li><strong>Module 3 (Testing Advanced)</strong>: a full request-spec suite exercising
   the HTTP layer end-to-end rather than mocking pieces out.</li>
 </ul>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>This API's request lifecycle threads together nearly every mechanism
+covered so far in Level 3: each incoming connection is handled by a Rack
+<code>#call(env)</code> invocation on a thread from your app server's pool; route
+matching walks the framework's route table exactly like Sinatra's; each
+<code>ActiveRecord</code> query you issue builds a lazy <code>Relation</code> that only fires SQL
+once actually iterated or rendered into JSON; and any raised exception
+(a validation failure, a missing record) unwinds the stack looking for a
+matching <code>rescue</code> — often one registered globally via an <code>error</code> or
+<code>rescue_from</code> handler rather than inline in each action, but the underlying
+unwind-and-match mechanism is identical to a plain <code>begin/rescue</code>. Because
+each request typically runs on its own thread (or process, depending on
+server config) with its own instance of the controller/handler object,
+concurrent requests never share instance-variable state — only the
+underlying database connection pool and any explicitly shared globals are
+genuinely shared resources you need to reason about for thread-safety.</p>
 <h2 id="stretch-goals">Stretch goals<a class="headerlink" href="#stretch-goals" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Add a <code>GET /tasks?done=true</code> filter that returns only completed tasks,

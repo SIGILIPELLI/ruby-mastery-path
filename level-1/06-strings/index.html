@@ -924,6 +924,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cheat-sheet" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2294,6 +2305,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cheat-sheet" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2410,6 +2432,19 @@ indented code.</p>
 but non-bang methods like <code>.upcase</code> return a <em>new</em> string rather than
 modifying the receiver — you must call the <code>!</code> version, or reassign, to
 actually change the original.</p>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>Ruby strings are mutable byte buffers with an attached <code>Encoding</code> object
+(UTF-8 by default) — internally a <code>String</code> is a struct holding a pointer to
+a heap buffer, a length, and a capacity, much like a C string but
+length-prefixed rather than null-terminated, so <code>"a\0b".length</code> is 3, not 1.
+Every string method that "changes" a string either mutates that buffer in
+place (<code>&lt;&lt;</code>, <code>gsub!</code>, <code>concat</code> — no new object, same <code>object_id</code>) or
+allocates a fresh buffer and returns a new String (<code>+</code>, <code>gsub</code>, <code>upcase</code>).
+Since Ruby 3.0, string literals aren't frozen by default, but MRI still
+deduplicates <em>identical frozen</em> string literals when you add
+<code># frozen_string_literal: true</code> at the top of a file — the interpreter
+interns them once, similar to Symbols, saving both memory and repeated
+allocation for strings that never need to change.</p>
 <h2 id="cheat-sheet">Cheat sheet<a class="headerlink" href="#cheat-sheet" title="Permanent link">&para;</a></h2>
 <table>
 <thead>

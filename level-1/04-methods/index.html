@@ -879,6 +879,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cheat-sheet" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2316,6 +2327,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cheat-sheet" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2450,6 +2472,21 @@ common in idiomatic Ruby method signatures with more than 1-2 parameters.</p>
 explicit parameter for it — this is the foundation for <code>each</code>, <code>map</code>, and
 most of Ruby's iteration idioms, covered fully in
 <a href="../08-blocks-procs-lambdas/">Module 8</a>.</p>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>Calling <code>obj.greet("world")</code> is not direct dispatch to a function pointer —
+MRI performs <strong>method lookup</strong> by walking <code>obj</code>'s <strong>ancestor chain</strong>: first
+<code>obj</code>'s singleton class (if it has one), then its class, then each module
+the class <code>include</code>s (in reverse inclusion order), then the superclass and
+its included modules, and so on up to <code>BasicObject</code>. You can print this
+chain yourself with <code>obj.class.ancestors</code>. Once found, MRI caches the
+lookup result (an inline method cache keyed on the class) so repeated calls
+on objects of the same class skip re-walking the chain — this is why
+monkey-patching a class after methods have already been JIT-cached can
+occasionally require cache invalidation, which MRI handles automatically
+by bumping a global "class serial" number whenever any class is reopened.
+Arguments themselves are passed by reference to the object, matching
+ordinary variable assignment — Ruby has no separate call-by-value
+semantics for method arguments.</p>
 <h2 id="cheat-sheet">Cheat sheet<a class="headerlink" href="#cheat-sheet" title="Permanent link">&para;</a></h2>
 <table>
 <thead>

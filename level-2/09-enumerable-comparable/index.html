@@ -1384,6 +1384,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cheat-sheet" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2294,6 +2305,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cheat-sheet" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2496,6 +2518,22 @@ give them instead.</p>
 <p>Both give the same result here, but <code>sort_by</code> is generally faster when the
 comparison key is expensive to compute, because it's computed once per
 element instead of on every pairwise comparison during the sort.</p>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p><code>Enumerable</code> is a module with dozens of methods (<code>map</code>, <code>select</code>, <code>sum</code>,
+<code>sort_by</code>, <code>reduce</code>...) implemented entirely in terms of <strong>one</strong> method your
+class must supply: <code>each</code>. Every <code>Enumerable</code> method internally calls
+<code>each</code> and builds its result by yielding to the block you passed to <em>it</em>,
+composing behavior on top of your one primitive — this is why mixing in
+<code>Enumerable</code> and defining <code>each</code> instantly gives your custom class dozens of
+methods for free, with zero additional code. <code>Comparable</code> works the same
+way in reverse: it implements <code>&lt;</code>, <code>&gt;</code>, <code>between?</code>, <code>clamp</code>, and more, all
+purely in terms of the single method <code>&lt;=&gt;</code> (the "spaceship operator")
+your class defines, which must return -1, 0, 1, or <code>nil</code>. Internally,
+<code>sort</code> and <code>sort_by</code> don't use the same algorithm: <code>sort</code> calls <code>&lt;=&gt;</code>
+directly on pairs of elements (comparisons happen every time, O(n log n)
+comparisons total), while <code>sort_by</code> computes the sort key for each element
+exactly once up front (a Schwartzian transform) — which is why <code>sort_by</code>
+wins when computing the key is expensive.</p>
 <h2 id="cheat-sheet">Cheat sheet<a class="headerlink" href="#cheat-sheet" title="Permanent link">&para;</a></h2>
 <table>
 <thead>

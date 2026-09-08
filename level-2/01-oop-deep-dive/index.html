@@ -1193,6 +1193,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cheat-sheet" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2360,6 +2371,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cheat-sheet" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2604,6 +2626,21 @@ convenient, but it's risky:</p>
   scoped alternative to monkey-patching) if you truly need to change
   built-in behavior.</li>
 </ul>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p><code>include</code> and <code>extend</code> don't copy methods into your class — they splice a
+module into the <strong>ancestor chain</strong> itself. <code>include Comparable</code> inserts the
+module directly above your class in the lookup chain returned by
+<code>ancestors</code>, so instance method lookup finds it there; <code>extend Comparable</code>
+instead inserts the module into the <em>singleton class</em> of the receiver, which
+is why <code>extend</code>ed methods behave as class (or object-level) methods rather
+than instance methods. <code>prepend</code> (Ruby's less common third option) inserts a
+module <em>below</em> the class in the chain, ahead of the class's own methods —
+which is the only clean way to intercept and call <code>super</code> from <em>inside</em> a
+method the class itself defines, since normal <code>include</code> can never come
+before the class in lookup order. Modules can't be instantiated directly
+because MRI's <code>Module</code> class is a superclass of <code>Class</code> but deliberately
+doesn't implement <code>new</code> the way <code>Class</code> does — a module is method
+storage and a chain node, not a blueprint for objects.</p>
 <h2 id="cheat-sheet">Cheat sheet<a class="headerlink" href="#cheat-sheet" title="Permanent link">&para;</a></h2>
 <table>
 <thead>

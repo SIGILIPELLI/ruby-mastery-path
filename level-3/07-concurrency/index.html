@@ -1715,6 +1715,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cheat-sheet" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2316,6 +2327,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cheat-sheet" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2505,6 +2527,24 @@ time without materializing the whole sequence.</p>
   does nothing for throughput; its value is structuring pausable,
   resumable control flow, not concurrency.</li>
 </ul>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>MRI's <strong>Global VM Lock (GVL/GIL)</strong> allows only one thread to execute Ruby
+bytecode at any instant, no matter how many <code>Thread.new</code> blocks you spawn
+or how many CPU cores are available — this is a deliberate simplification
+that makes MRI's C extensions and internal data structures thread-safe
+without per-object locking. The scheduler time-slices between threads
+(roughly every ~100 instructions or on a blocking call), which is why
+CPU-bound Ruby threads don't run in parallel but I/O-bound ones effectively
+do: any blocking syscall (file read, socket read, <code>sleep</code>) releases the GVL
+so another thread can run while the first waits on the kernel. Fibers
+(<code>Fiber.new</code>) go a level lower — they're cooperative, single-stack
+coroutines with <strong>no</strong> automatic scheduling at all; a Fiber only yields
+control when it explicitly calls <code>Fiber.yield</code>, which is exactly the
+primitive Ruby's <code>Enumerator</code> and the <code>async</code> gem's event loop are built
+from. To get genuine parallelism across CPU cores in Ruby, you need
+separate OS processes (<code>fork</code>, <code>Process.spawn</code>) — each gets its own GVL —
+which is why frameworks like Puma default to a mix of processes (workers)
+and threads (concurrency within a worker) rather than threads alone.</p>
 <h2 id="cheat-sheet">Cheat sheet<a class="headerlink" href="#cheat-sheet" title="Permanent link">&para;</a></h2>
 <table>
 <thead>

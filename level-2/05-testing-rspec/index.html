@@ -1294,6 +1294,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cheat-sheet" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2338,6 +2349,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cheat-sheet" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2532,6 +2554,22 @@ dependency:</p>
 <p><code>expect(logger).to receive(:info).with("Started")</code> is a <strong>message
 expectation</strong> — the example fails if <code>logger.info("Started")</code> is never
 called with exactly that argument.</p>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>An RSpec <code>describe</code>/<code>it</code> block isn't parsed by a special test-file grammar
+— it's ordinary Ruby method calls. <code>describe "Foo" do ... end</code> calls
+<code>RSpec::Core::ExampleGroup.describe</code>, which dynamically defines a new
+anonymous subclass of <code>ExampleGroup</code> using <code>Class.new</code> and evaluates the
+block in that subclass's context via <code>class_eval</code>; each <code>it</code> inside becomes
+a method defined on that generated class. Running the suite is just
+RSpec instantiating each generated example-group subclass and invoking its
+methods, catching exceptions to report pass/fail — a raised
+<code>RSpec::Expectations::ExpectationNotMetError</code> (which is what <code>expect(x).to
+eq(y)</code> raises internally when the match fails) is functionally the same
+unwinding mechanism covered in the exceptions module. <code>let</code> is implemented
+with memoization: it defines a method that runs the block once, caches the
+result in an instance variable, and returns the cached value on subsequent
+calls within the same example — which is why <code>let</code> values are lazy and
+reset between every <code>it</code>.</p>
 <h2 id="cheat-sheet">Cheat sheet<a class="headerlink" href="#cheat-sheet" title="Permanent link">&para;</a></h2>
 <table>
 <thead>

@@ -862,6 +862,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cheat-sheet" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2338,6 +2349,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cheat-sheet" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2497,6 +2519,23 @@ instead — you'll see it constantly once we cover blocks in Module 8.</p>
 <a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="k">end</span>
 <a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="c1"># 1 3 5</span>
 </code></pre></div>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p><code>if</code>/<code>unless</code>/<code>case</code> compile to YARV branch instructions (<code>branchif</code>,
+<code>branchunless</code>) that jump to different bytecode offsets — there's no
+separate "control flow interpreter," the same stack machine that evaluates
+expressions also evaluates conditions and jumps. <code>case/when</code> looks
+sequential in the code, but at each <code>when</code> MRI calls <code>===</code> (case equality)
+on that clause's value with your subject as the argument — this is why
+<code>when Integer</code> matches via <code>Integer === x</code> (which is really
+<code>x.is_a?(Integer)</code>) and <code>when 1..5</code> matches via <code>Range#===</code> (<code>x</code> inside the
+range), while a <code>Regexp</code> <code>when</code> clause matches via <code>Regexp#===</code>
+(pattern match) — three different methods all invoked through the identical
+<code>===</code> protocol. <code>while</code>/<code>until</code>/<code>each</code> loops don't create a new variable
+scope in Ruby the way blocks conceptually might suggest — a variable first
+assigned inside a <code>while</code> loop's body remains visible after the loop ends,
+because <code>while</code> is a control-flow keyword compiled inline into the
+enclosing scope's bytecode, not a method call that takes a block (unlike
+<code>each</code>, which genuinely does open a new binding for its block parameters).</p>
 <h2 id="cheat-sheet">Cheat sheet<a class="headerlink" href="#cheat-sheet" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
