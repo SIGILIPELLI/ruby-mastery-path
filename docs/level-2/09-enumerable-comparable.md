@@ -184,6 +184,24 @@ Both give the same result here, but `sort_by` is generally faster when the
 comparison key is expensive to compute, because it's computed once per
 element instead of on every pairwise comparison during the sort.
 
+## How It Actually Works
+
+`Enumerable` is a module with dozens of methods (`map`, `select`, `sum`,
+`sort_by`, `reduce`...) implemented entirely in terms of **one** method your
+class must supply: `each`. Every `Enumerable` method internally calls
+`each` and builds its result by yielding to the block you passed to *it*,
+composing behavior on top of your one primitive — this is why mixing in
+`Enumerable` and defining `each` instantly gives your custom class dozens of
+methods for free, with zero additional code. `Comparable` works the same
+way in reverse: it implements `<`, `>`, `between?`, `clamp`, and more, all
+purely in terms of the single method `<=>` (the "spaceship operator")
+your class defines, which must return -1, 0, 1, or `nil`. Internally,
+`sort` and `sort_by` don't use the same algorithm: `sort` calls `<=>`
+directly on pairs of elements (comparisons happen every time, O(n log n)
+comparisons total), while `sort_by` computes the sort key for each element
+exactly once up front (a Schwartzian transform) — which is why `sort_by`
+wins when computing the key is expensive.
+
 ## Cheat sheet
 
 | To get... | Implement... | Then you get for free |

@@ -194,6 +194,24 @@ dependency injection with a regular object is easier to test).
   a real object with explicit dependencies once the block grows past a
   couple of lines.
 
+## How It Actually Works
+
+Most "patterns" from statically-typed languages collapse into much less
+ceremony in Ruby precisely because of the mechanisms covered elsewhere on
+this site. A classic Strategy pattern is often just passing a `Proc` or
+block — no interface, no strategy classes, because a block already *is* an
+object closing over behavior. A Singleton is commonly just
+`require "singleton"` mixing in a module that overrides `new` to raise and
+defines `.instance` to memoize a single object in a class-level variable —
+no special language feature, just method redefinition on the singleton
+class. The Observer pattern (`require "observer"`) works by having
+`add_observer` push objects into an internal array, and `notify_observers`
+iterate that array calling `update` on each — ordinary `Enumerable`-style
+iteration, not a compiler-level event system. Decorator-style patterns lean
+on `SimpleDelegator` or `method_missing` (Level 3's metaprogramming module)
+to forward unhandled calls to a wrapped object, intercepting method lookup
+itself rather than reimplementing every method by hand.
+
 ## Cheat sheet
 
 | Pattern | Ruby idiom |

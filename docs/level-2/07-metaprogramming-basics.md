@@ -186,6 +186,26 @@ the method "doesn't exist" anywhere you can `grep` for it. Use these tools
 when the boilerplate they eliminate is large and repetitive — not as a
 default way to write every class.
 
+## How It Actually Works
+
+`define_method`, `send`, and `class_eval` all operate on the exact same
+method table that ordinary `def` populates — there is no separate "dynamic
+method" storage in MRI. `class_eval` works by temporarily changing what
+`self` and the default definee (where a bare `def` would land) refer to
+inside the block, evaluating your code as if it were written literally
+inside `class Foo; end` — which is why `attr_accessor` and `def` both work
+normally inside a `class_eval` block. `send` bypasses Ruby's usual
+`private`/`protected` visibility checks entirely because those checks
+happen at the call site during method dispatch, not inside the method
+lookup itself — `send` performs the identical ancestor-chain lookup as a
+normal call but skips the visibility gate, which is exactly why it's both
+useful for testing private methods and dangerous in production code.
+`respond_to?` and `instance_variable_get`/`set` are introspection into the
+literal same data structures method dispatch uses: the method table for
+the former, and the per-object instance-variable slot table for the
+latter — there's no reflection layer sitting on top, you're reading MRI's
+own bookkeeping directly.
+
 ## Cheat sheet
 
 | Tool | What it does |

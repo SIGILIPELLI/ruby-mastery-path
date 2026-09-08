@@ -166,6 +166,25 @@ invalidation and naming things"). Two common strategies:
   an in-process cache in front of the remote cache (a two-tier cache) is
   sometimes worth the added invalidation complexity.
 
+## How It Actually Works
+
+Scaling a Ruby service usually means scaling *around* the GVL rather than
+through it: since one process can only execute Ruby bytecode on one core
+at a time, throughput under load comes from running multiple worker
+processes (each with its own GVL, its own heap, its own copy of loaded
+code) behind a load balancer or app-server master (Puma's cluster mode
+forks worker processes for exactly this reason) rather than from adding
+threads alone, which help mainly with I/O-bound concurrency within a
+worker. Caching layers (Rails.cache, Redis) exploit the fact that
+recomputation and a network round-trip to another process are both far
+slower than a hash lookup in local memory — but a cache shared across
+worker processes must live outside any one process's heap (Redis, Memcached)
+since separate OS processes can't share Ruby object references. GC tuning
+(`RUBY_GC_HEAP_GROWTH_FACTOR`, etc.) works by changing when MRI's
+generational mark-and-sweep collector decides to run a full mark pass
+versus a cheaper minor one — trading memory footprint for fewer GC pauses,
+a direct lever on the same collector discussed in the profiling module.
+
 ## Cheat sheet
 
 | Pattern | Use when | Ruby idiom |

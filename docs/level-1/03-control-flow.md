@@ -147,6 +147,25 @@ end
 # 1 3 5
 ```
 
+## How It Actually Works
+
+`if`/`unless`/`case` compile to YARV branch instructions (`branchif`,
+`branchunless`) that jump to different bytecode offsets — there's no
+separate "control flow interpreter," the same stack machine that evaluates
+expressions also evaluates conditions and jumps. `case/when` looks
+sequential in the code, but at each `when` MRI calls `===` (case equality)
+on that clause's value with your subject as the argument — this is why
+`when Integer` matches via `Integer === x` (which is really
+`x.is_a?(Integer)`) and `when 1..5` matches via `Range#===` (`x` inside the
+range), while a `Regexp` `when` clause matches via `Regexp#===`
+(pattern match) — three different methods all invoked through the identical
+`===` protocol. `while`/`until`/`each` loops don't create a new variable
+scope in Ruby the way blocks conceptually might suggest — a variable first
+assigned inside a `while` loop's body remains visible after the loop ends,
+because `while` is a control-flow keyword compiled inline into the
+enclosing scope's bytecode, not a method call that takes a block (unlike
+`each`, which genuinely does open a new binding for its block parameters).
+
 ## Cheat sheet
 
 | Construct | Use when |

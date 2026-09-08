@@ -175,6 +175,24 @@ specs are slower and touch more code per failure.
   request spec file that requires it pays that cost — keep expensive
   setup behind lazy initialization or `before(:suite)`.
 
+## How It Actually Works
+
+A test double (`instance_double`, `double`) is a real Ruby object created
+at runtime with a singleton class whose method table is populated on the
+fly from your `allow(...).to receive(...)` calls — RSpec uses
+`define_singleton_method` internally to attach exactly the methods you
+stub, and `instance_double` additionally reflects on the real class via
+`.instance_methods` to verify at test time that the methods you're stubbing
+actually exist on the real object, catching typos that a plain `double`
+would silently allow. Mocking a method (`expect(obj).to receive(:foo)`)
+temporarily replaces the method in `obj`'s singleton class for the duration
+of the example, then RSpec restores the original method afterward — which
+is why mocks never leak between examples even though they're implemented
+by literally rewriting the method table. Database-backed test suites that
+wrap each example in a transaction rely on the fact that a `ROLLBACK` after
+the example undoes every write the example made — the app code doesn't
+need to know it's being tested for this to work.
+
 ## Cheat sheet
 
 | Goal | RSpec syntax |

@@ -201,6 +201,24 @@ end
 # Caller saw: boom
 ```
 
+## How It Actually Works
+
+`raise` doesn't return control flow normally — it triggers **stack
+unwinding**: MRI walks back up the call stack frame by frame, at each level
+checking whether that frame is inside a `begin/rescue` (or method-level
+`rescue`) whose `rescue` clause's class list matches (via `===`, so
+subclasses of `StandardError` match a bare `rescue`) the raised exception's
+class. The first matching frame's `rescue` body runs; if none match, the
+process terminates and prints the backtrace, which is really just the list
+of frames the unwinder walked through, each holding its file/line/method
+name. `ensure` blocks are guaranteed to run during this unwind regardless
+of whether an exception was raised, returned from, or even `throw`n past —
+MRI implements this by registering ensure handlers on the frame itself, so
+unwinding through a frame always executes its ensure code before continuing
+further up the stack. This is also why raising inside a `rescue` block
+replaces `$!` and the original exception becomes accessible only via
+`cause`, forming an exception-chain linked list.
+
 ## Cheat sheet
 
 | Keyword | Purpose |

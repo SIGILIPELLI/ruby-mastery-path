@@ -166,6 +166,25 @@ a single test.
   a real dependency bump, hiding a real incompatibility until it breaks
   in production instead of in CI.
 
+## How It Actually Works
+
+Splitting a test suite across parallel CI workers relies on each worker
+being a genuinely separate OS process with its own MRI heap, GVL, and
+(critically) its own database connection/schema — running specs in threads
+within one process wouldn't help much for CPU-bound test execution because
+of the GVL, but separate processes each get their own lock and can run on
+separate cores simultaneously. Test databases are typically isolated per
+worker (`myapp_test1`, `myapp_test2`) specifically because ActiveRecord's
+connection pool and transactional fixtures assume exclusive access; sharing
+one database across parallel workers would cause one worker's uncommitted
+transactional test data to be invisible or conflicting for another. Flaky
+tests frequently trace back to accidental shared mutable state surviving
+between examples — a class variable, a memoized `Singleton`, or leftover
+data because a transaction wasn't rolled back — which only manifests under
+certain run orders, which is exactly why RSpec's `--order random` and
+seed-based reproducibility exist: to surface hidden order-dependence rather
+than letting it hide behind incidental alphabetical execution order.
+
 ## Cheat sheet
 
 | Task | Syntax |

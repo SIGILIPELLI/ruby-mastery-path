@@ -168,6 +168,24 @@ closer, not an automatic verdict.
   suddenly fail CI on an unrelated PR when a new default cop starts
   flagging existing code that was previously fine.
 
+## How It Actually Works
+
+RuboCop doesn't pattern-match your source text — it uses Ruby's own
+`Ripper` (or the `parser` gem) to build a full **Abstract Syntax Tree** from
+your file, the same kind of structural representation MRI's own compiler
+builds internally before generating YARV bytecode. Each cop is a small
+visitor that walks specific node types in that tree (a `send` node for
+method calls, a `def` node for method definitions) and checks structural
+properties — which is why RuboCop can reliably flag "method too long" by
+counting AST lines between a `def` and `end` node, but can be fooled by
+things that look identical in the AST but differ only in your intent.
+Auto-correction works by recording the exact source-range offsets of each
+flagged node and generating textual replacements at those offsets, then
+rewriting the file — it's mechanical text surgery guided by the AST's
+position data, not a re-interpretation of your logic, which is exactly why
+`-A` autofixes are safe for style violations (whitespace, naming) but
+riskier for anything that could change runtime behavior.
+
 ## Cheat sheet
 
 | Task | Command |

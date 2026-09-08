@@ -152,6 +152,26 @@ wrapper around the real bottleneck further down the stack.
   `benchmark-ips` does by default) smooths this out; a single
   `Benchmark.bm` pass does not.
 
+## How It Actually Works
+
+A sampling profiler (like `stackprof`) doesn't instrument every method call
+— it installs a timer (via `setitimer` or a signal handler) that fires
+periodically (e.g., every 1ms of CPU time) and, on each tick, walks MRI's
+current call stack (the same frame stack that exception backtraces walk)
+recording which method is executing. Aggregating thousands of samples
+approximates where time is actually spent with far less overhead than
+tracing every call. `Benchmark.bm` timings can be misleading if you don't
+account for MRI's **garbage collector**: MRI uses generational mark-and-sweep
+GC — most objects die young and are collected cheaply from a small "young"
+generation, but objects that survive several GC cycles get promoted to the
+"old" generation and are scanned less often, and a GC pause running mid-benchmark
+can make one run look artificially slower than another with identical code.
+Object allocation itself is often the dominant cost in "slow" Ruby code —
+every `.map`, string interpolation, or `+` on non-mutating strings allocates
+a new heap object that the GC must eventually trace and reclaim, which is
+why reducing allocations (reusing buffers, using `<<` instead of `+=`)
+is frequently the highest-leverage optimization.
+
 ## Cheat sheet
 
 | Task | Code |

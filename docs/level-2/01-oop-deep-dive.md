@@ -237,6 +237,23 @@ convenient, but it's risky:
   scoped alternative to monkey-patching) if you truly need to change
   built-in behavior.
 
+## How It Actually Works
+
+`include` and `extend` don't copy methods into your class — they splice a
+module into the **ancestor chain** itself. `include Comparable` inserts the
+module directly above your class in the lookup chain returned by
+`ancestors`, so instance method lookup finds it there; `extend Comparable`
+instead inserts the module into the *singleton class* of the receiver, which
+is why `extend`ed methods behave as class (or object-level) methods rather
+than instance methods. `prepend` (Ruby's less common third option) inserts a
+module *below* the class in the chain, ahead of the class's own methods —
+which is the only clean way to intercept and call `super` from *inside* a
+method the class itself defines, since normal `include` can never come
+before the class in lookup order. Modules can't be instantiated directly
+because MRI's `Module` class is a superclass of `Class` but deliberately
+doesn't implement `new` the way `Class` does — a module is method
+storage and a chain node, not a blueprint for objects.
+
 ## Cheat sheet
 
 | Goal | Tool |

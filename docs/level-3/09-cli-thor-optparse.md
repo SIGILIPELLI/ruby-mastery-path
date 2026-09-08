@@ -126,6 +126,24 @@ the matching method with the remaining positional arguments.
   `if` check but prints differently if you ever inspect `options[:shout]`
   directly.
 
+## How It Actually Works
+
+`OptionParser` builds a table mapping flag strings (`-v`, `--verbose`) to
+handler blocks, then does a single linear pass over `ARGV`, matching each
+token against that table and calling the matching block (or, for flags with
+no `--`/`-` prefix, treating it as a positional argument) — `ARGV` itself
+is just a global `Array` of the strings the shell split your command line
+into, populated by MRI before your script's first line even runs. Thor
+builds on the same idea but at the *class* level: methods on your `Thor`
+subclass become subcommands via `method_added` (a hook MRI calls
+automatically every time a method is defined on a class, letting Thor
+intercept the definition and register it), and `desc`/`option` calls
+immediately preceding a method attach metadata to it that the *next*
+`method_added` callback picks up and associates with that specific command.
+This is metaprogramming you'll see generalized in Level 3's dedicated
+metaprogramming module — Thor's DSL is a practical, real-world use of
+hooks most people first meet as an abstract concept.
+
 ## Cheat sheet
 
 | Task | OptionParser | Thor |

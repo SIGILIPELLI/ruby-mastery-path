@@ -157,6 +157,24 @@ the route block below never runs if the `before` filter halts first.
   permitted_hosts: [] }` (fine for tests/dev, tighten it for real
   deployments).
 
+## How It Actually Works
+
+Sinatra is not a separate server — it's a thin DSL over **Rack**, the
+common interface nearly every Ruby web server and framework (including
+Rails) speaks: a Rack app is any object responding to `#call(env)` that
+returns a `[status, headers, body]` triple. `get "/path" do ... end`
+registers a route by storing the pattern and block in an internal array;
+on each incoming request, Sinatra's own `#call` method (which *is* the Rack
+entry point) walks that array top-to-bottom looking for the first pattern
+that matches the request path and method, then evaluates your block in the
+context of a per-request instance — which is why every route handler has
+access to `params`, `request`, and instance variables scoped to just that
+one request, with no cross-request leakage. Under something like
+`rackup`/Puma, each incoming connection typically gets its own thread (or
+process, in a forking server), so two simultaneous requests to the same
+Sinatra app really are handled by two different `self` instances even
+though they share the same loaded class and route table.
+
 ## Cheat sheet
 
 | Task | Sinatra code |

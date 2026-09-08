@@ -113,6 +113,22 @@ Symbols look similar to strings but are immutable and memory-efficient —
 Ruby code idiomatically uses them for things like hash keys and fixed status
 values rather than plain strings.
 
+## How It Actually Works
+
+Every value in Ruby — even `1`, `true`, or `nil` — is an instance of a
+class, and a variable is never the object itself; it's a reference (an
+object ID) pointing at an object living on the heap. `x = "hi"` creates a
+`String` object and binds the label `x` to it; `y = x` copies the
+*reference*, not the string, so `y << "!"` mutates the same object `x`
+points at. Small integers are the one exception: MRI represents `Fixnum`-range
+integers as **immediates** — the value is packed directly into the
+reference itself (tagged with a low bit) so no heap object or GC tracking is
+needed at all, which is why arithmetic on small integers is essentially free.
+Symbols work similarly: `:name` is interned once into a global symbol table,
+so every occurrence of `:name` in your program is the *same* object
+(`:name.object_id == :name.object_id` is always true), unlike two separate
+string literals `"name"` which are distinct objects even with equal content.
+
 ## Cheat sheet
 
 | Concept | Example |

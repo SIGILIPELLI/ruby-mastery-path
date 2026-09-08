@@ -193,6 +193,26 @@ originally written — which is exactly what lets you write `tag "h1",
   plain local variable referenced inside still means whatever it meant
   outside.
 
+## How It Actually Works
+
+`method_missing` is the last stop in MRI's method lookup, not a special
+case bolted on top of it: when the ancestor-chain walk (class, then
+included modules, then superclass...) fails to find a matching method
+anywhere, MRI's dispatch mechanism — instead of immediately raising
+`NoMethodError` — calls `method_missing` on the receiver if one is defined,
+passing the attempted method name and arguments; the default
+`BasicObject#method_missing` simply raises the error you're used to seeing.
+This is why overriding `method_missing` (and pairing it with
+`respond_to_missing?`, which callers like `respond_to?` and `method`
+consult) lets an object appear to respond to methods that were never
+actually defined anywhere in its ancestor chain. `define_method` and
+`class_eval`/`instance_eval` don't create some parallel "dynamic" method
+type — they populate the exact same per-class method table that `def`
+populates at parse time; the only difference is *when* the method table
+gets the entry (compile time for `def`, arbitrary runtime for
+`define_method`), which is why a `define_method`-defined method is
+indistinguishable from a hand-written one once it exists.
+
 ## Cheat sheet
 
 | Task | Code |

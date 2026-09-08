@@ -102,6 +102,22 @@ end
 bundle install --without test   # skip the :test group, e.g. in production
 ```
 
+## How It Actually Works
+
+`require` and `require_relative` aren't preprocessor includes — each call
+asks `Kernel#require` to check `$LOADED_FEATURES` (an array of already-loaded
+absolute paths); if the file isn't there, Ruby reads it, compiles it to
+YARV bytecode, evaluates the whole file top to bottom (which is how
+`class`/`def`/constant definitions actually take effect), then records the
+path so re-requiring the same file is a no-op. RubyGems hooks into this by
+adding each installed gem's `lib/` directory to `$LOAD_PATH` so `require
+"gem_name"` can find it. Bundler goes one step further: `Gemfile.lock`
+pins exact resolved versions of every gem and its transitive dependencies,
+and `bundle exec` (or `Bundler.require` in `bundle/setup`) rewrites
+`$LOAD_PATH` at runtime to point *only* at those locked versions — which is
+why running a script without `bundle exec` can silently load a different,
+system-installed version of a gem than the one your `Gemfile.lock` pinned.
+
 ## Cheat sheet
 
 | Task | Command |

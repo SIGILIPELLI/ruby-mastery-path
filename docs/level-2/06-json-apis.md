@@ -179,6 +179,23 @@ result = JSON.parse(response.body)
 puts result["json"]["title"]   # New post
 ```
 
+## How It Actually Works
+
+`JSON.parse` is a recursive-descent parser: it walks the input string
+character by character, and every time it encounters `{`, `[`, a quote, or
+a digit, it recurses into a sub-parser for that JSON type, building nested
+Ruby `Hash`/`Array`/`String`/`Numeric` objects as it goes — there's no
+intermediate schema, so the resulting object graph mirrors the JSON's
+nesting exactly. `JSON.generate` (what `to_json` calls) walks the opposite
+direction, recursively calling `#to_json` on nested objects, which is why
+defining a custom `to_json` method on your own class lets it serialize
+however you like. Underneath `Net::HTTP` or `HTTParty`, a request opens a
+TCP socket via the OS, and — like file I/O — the actual `read`/`write` on
+that socket releases MRI's GIL, letting other threads run Ruby while your
+thread blocks waiting for the network round trip; this is the mechanism
+that makes concurrent HTTP requests via multiple threads genuinely useful
+in Ruby despite the GIL.
+
 ## Cheat sheet
 
 | Task | Code |

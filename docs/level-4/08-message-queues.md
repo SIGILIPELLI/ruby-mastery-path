@@ -163,6 +163,25 @@ Reach for a real message broker (RabbitMQ, Kafka, SQS/SNS) when:
   producers) or bounded queue sizes rather than letting memory grow
   indefinitely.
 
+## How It Actually Works
+
+A message queue formalizes the producer/consumer pattern from the
+background-jobs module into a separate, durable service: a publisher
+serializes a message and sends it over a socket to the broker (RabbitMQ,
+Kafka, SQS), which persists it to disk *before* acknowledging — this is
+what makes delivery durable across a consumer crash, unlike an in-process
+`Queue` which loses everything if the process dies. A consumer's client
+library opens its own socket connection and either polls or holds a
+long-lived connection the broker pushes to; either way, when a message
+arrives, the library deserializes it and calls your handler through
+ordinary method dispatch, identical in spirit to a Sidekiq worker popping a
+job. "At-least-once delivery" is a direct consequence of the
+acknowledgment protocol: the broker keeps a message until the consumer
+explicitly acks it, so a consumer that crashes *after* processing but
+*before* acking causes the broker to redeliver — which is exactly why
+consumer handlers must be idempotent, a correctness requirement forced by
+the ack timing, not a stylistic preference.
+
 ## Cheat sheet
 
 | Concept | Ruby stand-in used here | Real-world equivalent |

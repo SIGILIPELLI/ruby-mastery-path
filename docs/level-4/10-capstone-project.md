@@ -280,6 +280,24 @@ jobs:
 - **Module 9**: a `.rubocop.yml`-governed style pass integrated into the
   same CI job as the test suite.
 
+## How It Actually Works
+
+This capstone's CI/deploy pipeline is the composition of nearly every
+mechanism covered across Level 4: each CI job runs in its own container
+(its own OS process, its own GVL, isolated filesystem via namespaces), the
+test suite inside relies on the same generational mark-and-sweep GC and
+ActiveRecord lazy-relation query building used throughout, and the eventual
+production deploy runs your app as one or more worker processes behind a
+server like Puma, each with an independent GVL, scaling horizontally
+exactly as described in the performance-at-scale module. Background jobs
+triggered by the API cross a genuine process boundary into a separate
+worker via a durable queue (Redis or a message broker), which is why job
+arguments must serialize to plain data rather than carrying live object
+references. Every layer — routing, ORM, background processing, and the
+container runtime itself — ultimately rests on the same primitives this
+whole site has been building toward since Level 1: objects, method lookup
+via the ancestor chain, and MRI's single-GVL-per-process execution model.
+
 ## Stretch goals
 
 1. Add a `DELETE /tasks/:id` route using `TaskService.find!` (reusing the

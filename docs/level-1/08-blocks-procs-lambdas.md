@@ -126,6 +126,23 @@ puts loose_proc.call(1).inspect   # [1, nil] -- procs silently fill missing args
   behavior (strict arity, `return` scoped to itself) — the safer default
   when in doubt.
 
+## How It Actually Works
+
+A block is not itself an object at the bytecode level — YARV compiles it
+into its own private bytecode sequence, attached to the method call, that
+gets invoked with a `yield` instruction. A `Proc` or `lambda`, on the other
+hand, is a real object wrapping two things: that same bytecode plus a
+captured **binding** — a reference to the surrounding scope's local
+variables, self, and stack frame at the moment it was created. That's why a
+block/proc can read and mutate a local variable from its enclosing method
+even after being passed elsewhere: it isn't copying the variable, it holds
+a live reference to the same binding. `lambda`s differ from `proc`s in two
+concrete VM-level ways: a lambda checks argument count strictly (raising
+`ArgumentError` on mismatch, just like a method call), and `return` inside
+a lambda unwinds only the lambda's own frame, whereas `return` inside a
+`proc` attempts to unwind the *enclosing method's* frame — which raises
+`LocalJumpError` if that method has already returned.
+
 ## Cheat sheet
 
 | Feature | Syntax |

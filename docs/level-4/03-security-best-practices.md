@@ -155,6 +155,28 @@ disables the automatic escaping that was protecting you.
   server-controlled state (a database column set by an admin action),
   never in something the request itself supplied.
 
+## How It Actually Works
+
+SQL injection and shell injection are the same underlying failure viewed
+through different interpreters: both happen when untrusted string data is
+concatenated into a command *before* that command's own parser runs, so
+attacker-supplied syntax (a `'` closing a SQL string literal, a `;`
+separating shell commands) is interpreted as structure rather than data.
+Parameterized queries (`where("name = ?", user_input)`) avoid this because
+the database driver sends the query template and the value as *separate*
+protocol messages — the value never passes through the SQL parser at all,
+so it cannot inject syntax no matter what it contains. Ruby's `Kernel#system`
+and backtick invocation face the identical problem: passing a single
+interpolated string routes it through `/bin/sh` for parsing, while passing
+an array of arguments (`system("rm", "-rf", user_path)`) invokes `execve`
+directly, bypassing the shell's parser entirely. Mass-assignment
+vulnerabilities exploit ActiveRecord's dynamic attribute methods (Level 3):
+if every column got a public setter automatically and you blindly pass
+`params` to `update`, you're letting a client set columns like `admin` that
+were never meant to be user-writable — `strong_parameters`' `permit` exists
+specifically to filter the hash before it ever reaches those generated
+setters.
+
 ## Cheat sheet
 
 | Risk | Wrong | Right |

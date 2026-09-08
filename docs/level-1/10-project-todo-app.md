@@ -126,6 +126,20 @@ ruby todo.rb list
 # [ ] 2. Review Level 2 outline
 ```
 
+## How It Actually Works
+
+This CLI is a tight loop of three MRI mechanisms you've already met
+separately: `gets.chomp` blocks the process on a syscall waiting for stdin
+data (during which the GIL is released, since blocking I/O never needs the
+interpreter lock); each parsed command dispatches through ordinary method
+lookup on your `TodoList` object; and every `@todos << item` mutates the
+same `Array` object in place rather than allocating a new one, which is why
+the list persists across loop iterations without you passing it around
+explicitly — it's held by a single instance variable's reference for the
+lifetime of the process. When the script exits, that heap and everything on
+it (including the in-memory todo array) simply disappears, which is exactly
+why a real version needs the file/database persistence covered in Level 2.
+
 ## Stretch goals
 
 - Add a `priority` field (`"low"`/`"medium"`/`"high"`) and sort the list by

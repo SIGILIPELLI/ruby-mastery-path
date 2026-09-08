@@ -207,6 +207,25 @@ low-priority ones (sending a marketing email) during a traffic spike.
   a job was enqueued with the right arguments without any Redis
   dependency at all — much faster and more deterministic.
 
+## How It Actually Works
+
+A background job framework (Sidekiq, Resque, etc.) is fundamentally a
+producer/consumer queue implemented over a shared store (Redis) rather than
+an in-process `Queue`: enqueuing a job serializes the job class name and
+arguments to JSON and pushes it onto a Redis list or sorted set; the
+returned control flow to your web request is immediate because the actual
+work happens in a completely separate OS process (the Sidekiq worker),
+which polls that same Redis structure in a loop, pops a job, deserializes
+it, and calls `YourJob.new.perform(*args)` — ordinary method dispatch, no
+different from calling it directly. Because the worker process is separate,
+it has its own GVL, its own heap, and its own object space entirely; job
+arguments must be JSON-serializable precisely because no Ruby object
+references (which only make sense within one process's heap) can cross
+that process boundary — this is also why passing an ActiveRecord object
+directly to a job is a common bug: only its ID survives serialization, and
+the worker must re-fetch the record from the database, potentially seeing
+different data than existed when the job was enqueued.
+
 ## Cheat sheet
 
 | Task | Sidekiq API |

@@ -219,6 +219,24 @@ examples once the suite grows.
 - **Module 3 (Testing Advanced)**: a full request-spec suite exercising
   the HTTP layer end-to-end rather than mocking pieces out.
 
+## How It Actually Works
+
+This API's request lifecycle threads together nearly every mechanism
+covered so far in Level 3: each incoming connection is handled by a Rack
+`#call(env)` invocation on a thread from your app server's pool; route
+matching walks the framework's route table exactly like Sinatra's; each
+`ActiveRecord` query you issue builds a lazy `Relation` that only fires SQL
+once actually iterated or rendered into JSON; and any raised exception
+(a validation failure, a missing record) unwinds the stack looking for a
+matching `rescue` — often one registered globally via an `error` or
+`rescue_from` handler rather than inline in each action, but the underlying
+unwind-and-match mechanism is identical to a plain `begin/rescue`. Because
+each request typically runs on its own thread (or process, depending on
+server config) with its own instance of the controller/handler object,
+concurrent requests never share instance-variable state — only the
+underlying database connection pool and any explicitly shared globals are
+genuinely shared resources you need to reason about for thread-safety.
+
 ## Stretch goals
 
 1. Add a `GET /tasks?done=true` filter that returns only completed tasks,

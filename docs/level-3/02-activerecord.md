@@ -157,6 +157,25 @@ matters enormously once N is in the thousands.
   data written on one is invisible to the other. Use a real file (even a
   temp one) if you need multiple connections to see the same data.
 
+## How It Actually Works
+
+`User.where(active: true)` doesn't hit the database immediately — it
+returns a `Relation` object that lazily accumulates query fragments
+(`WHERE`, `ORDER BY`, `LIMIT` clauses as an internal AST-like structure) and
+only fires the actual SQL when something forces evaluation: iterating it,
+calling `.to_a`, `.first`, or printing it. This laziness is why you can
+chain `User.where(active: true).order(:name).limit(10)` and get exactly one
+SQL query, not three. ActiveRecord builds each model's attribute methods
+(`user.name`, `user.name=`) dynamically at class-load time by introspecting
+the database's schema (`information_schema` or `PRAGMA table_info` under
+the hood) via `define_method` — this is why a model class has no explicit
+`attr_accessor` for its columns yet still responds to them, and why adding
+a column to the table without restarting the app can leave stale attribute
+methods until the schema cache reloads. Associations like `has_many` also
+generate lazy `Relation`s, and calling `user.posts` twice re-queries unless
+you've eager-loaded with `includes`, which batches what would otherwise be
+an N+1 query pattern into two queries total.
+
 ## Cheat sheet
 
 | Task | ActiveRecord code |

@@ -95,6 +95,21 @@ but non-bang methods like `.upcase` return a *new* string rather than
 modifying the receiver — you must call the `!` version, or reassign, to
 actually change the original.
 
+## How It Actually Works
+
+Ruby strings are mutable byte buffers with an attached `Encoding` object
+(UTF-8 by default) — internally a `String` is a struct holding a pointer to
+a heap buffer, a length, and a capacity, much like a C string but
+length-prefixed rather than null-terminated, so `"a\0b".length` is 3, not 1.
+Every string method that "changes" a string either mutates that buffer in
+place (`<<`, `gsub!`, `concat` — no new object, same `object_id`) or
+allocates a fresh buffer and returns a new String (`+`, `gsub`, `upcase`).
+Since Ruby 3.0, string literals aren't frozen by default, but MRI still
+deduplicates *identical frozen* string literals when you add
+`# frozen_string_literal: true` at the top of a file — the interpreter
+interns them once, similar to Symbols, saving both memory and repeated
+allocation for strings that never need to change.
+
 ## Cheat sheet
 
 | Task | Method |

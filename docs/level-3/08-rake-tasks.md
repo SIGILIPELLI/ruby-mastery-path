@@ -160,6 +160,23 @@ expand.
   "newer" and triggers a rebuild — useful to know when a build seems to
   rerun for no visible reason.
 
+## How It Actually Works
+
+A `Rakefile` is plain Ruby, evaluated top to bottom exactly like any
+`require`d file — `task :name do ... end` is a method call that registers
+a `Rake::Task` object (name, prerequisites, and the block) into a global
+task registry; it does **not** run the block immediately. Running
+`rake name` looks the task up in that registry, resolves its `prerequisite`
+tasks recursively (building a dependency graph and running each
+prerequisite's block first, but only once even if multiple tasks depend on
+it — Rake tracks which tasks have already been "invoked" this run), and
+only then executes the named task's own block. `namespace` blocks work by
+prefixing whatever tasks are defined inside them with `namespace:name`
+before registering — it's a naming convention layered onto the same
+registry, not a separate mechanism. Because a Rakefile is just Ruby, you
+can freely mix ordinary method calls, `require`s, and conditionals into
+task bodies — there is no restricted "task language" underneath.
+
 ## Cheat sheet
 
 | Task | Rake code |

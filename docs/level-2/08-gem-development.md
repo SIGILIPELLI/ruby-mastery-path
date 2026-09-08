@@ -179,6 +179,22 @@ Once pushed, anyone can `gem install greeter_kit` or add
 be reused — so bump the version and re-push rather than trying to
 overwrite a mistake.
 
+## How It Actually Works
+
+A `.gemspec` isn't a config format Bundler invents — it's literal Ruby: RubyGems
+`eval`s the file and expects it to return a `Gem::Specification` object, which
+is why you can write conditionals or `File.read` calls inside a gemspec.
+`gem build` serializes that specification plus your `lib/` files into a
+`.gem` file, which is really just a tarball (containing `metadata.gz` and
+`data.tar.gz`) — you can `tar` into one yourself to see. Installing a gem
+unpacks that tarball into `~/.gem` (or your Bundler path) and — critically —
+does **not** automatically make it available; only a `require` call that
+resolves through `$LOAD_PATH` (which RubyGems' `activate` step prepends to)
+actually loads the code, and only the files your gemspec explicitly lists
+under `files`/`require_paths` are ever visible to `require` at all, which
+is why forgetting to list a new file in the gemspec silently breaks
+installs even though it works fine from a local checkout.
+
 ## Cheat sheet
 
 | Task | Command / File |

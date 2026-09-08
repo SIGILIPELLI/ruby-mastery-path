@@ -174,6 +174,22 @@ end
 # Grace is 34
 ```
 
+## How It Actually Works
+
+`File.open` wraps a plain OS file descriptor — an integer the kernel hands
+back from the `open(2)` syscall — inside a Ruby `IO` object that buffers
+reads/writes in userspace to avoid a syscall per byte. Passing a block to
+`File.open` isn't just convenience: the block form guarantees the file
+descriptor is closed via an implicit `ensure`, even if the block raises,
+because `File.open` itself is implemented with a `begin/ensure` around
+`yield`. Reading blocks the calling thread on the `read(2)` syscall — MRI's
+scheduler releases the GIL for the duration of that blocking syscall, which
+is precisely why file/network I/O is the case where Ruby's "green threads"
+genuinely achieve concurrency despite the GIL: while one thread waits on a
+disk read, another thread can run Ruby bytecode. `IO#each_line` streams the
+file lazily line by line rather than materializing the whole file as an
+array, which is why it can process files far larger than available RAM.
+
 ## Cheat sheet
 
 | Task | Code |

@@ -92,6 +92,23 @@ puts (1..5).sum          # 15
 | A sequence of numbers/letters | `Range` |
 | Unique items only | `Array#uniq` or convert to a `Set` (from the `set` library) |
 
+## How It Actually Works
+
+A Ruby `Array` is a contiguous, growable buffer of object references (like
+a `Vec<VALUE>` in the C source), not a linked list — that's why `arr[5]` is
+O(1) but `arr.unshift(x)` is O(n) (everything has to shift right). Ruby
+over-allocates capacity on growth (similar to how `ArrayList`/`Vec` grow in
+other languages), so repeated `push` calls are amortized O(1) even though
+occasional reallocations happen. A `Hash` is a genuine hash table: MRI calls
+`#hash` and `#eql?` on each key to place it in a bucket, and since Ruby 1.9
+hashes also maintain a doubly-linked **insertion order** list alongside the
+buckets — which is why iterating a Hash always yields keys in the order
+they were first inserted, a guarantee (not an implementation accident) since
+Ruby 1.9. Using a mutable object like an `Array` as a hash key is dangerous
+precisely because its `#hash` value can change after insertion, breaking
+the bucket it lives in — symbols and frozen strings are safe because their
+hash value never changes.
+
 ## Cheat sheet
 
 | Task | Method |

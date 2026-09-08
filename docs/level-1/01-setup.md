@@ -93,6 +93,27 @@ puts 5.respond_to?(:even?)   # true
 Even numbers, strings, and `nil` are full objects with methods you can call
 on them — there's no separate "primitive type" concept like in Java or C.
 
+## How It Actually Works
+
+When you type `ruby script.rb`, you're invoking **MRI** (Matz's Ruby
+Interpreter, aka CRuby) — the reference implementation almost everyone means
+when they say "Ruby". MRI compiles your source into **YARV bytecode**
+(Yet Another Ruby VM, introduced in Ruby 1.9) — not machine code, but a
+compact instruction set for a stack-based virtual machine. You can see it
+yourself:
+
+```
+$ ruby --dump=insns -e 'puts 1 + 2'
+```
+
+That bytecode runs inside a single OS process. MRI has a **Global
+Interpreter Lock (GIL)**, so even if you spawn multiple Ruby threads, only
+one thread executes Ruby bytecode at a time — threads are useful for I/O-bound
+work, not CPU parallelism (Module 7, Level 3 covers this in depth). `irb`
+is just a Ruby program itself: it reads a line, wraps it enough to parse,
+evaluates it through the same YARV pipeline, and prints the result — a
+read-eval-print loop with no magic beyond what `eval` already gives you.
+
 ## Choosing an editor
 
 VS Code (with the Ruby extension) or RubyMine both work well. The editor

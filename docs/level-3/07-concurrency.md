@@ -179,6 +179,26 @@ time without materializing the whole sequence.
   does nothing for throughput; its value is structuring pausable,
   resumable control flow, not concurrency.
 
+## How It Actually Works
+
+MRI's **Global VM Lock (GVL/GIL)** allows only one thread to execute Ruby
+bytecode at any instant, no matter how many `Thread.new` blocks you spawn
+or how many CPU cores are available — this is a deliberate simplification
+that makes MRI's C extensions and internal data structures thread-safe
+without per-object locking. The scheduler time-slices between threads
+(roughly every ~100 instructions or on a blocking call), which is why
+CPU-bound Ruby threads don't run in parallel but I/O-bound ones effectively
+do: any blocking syscall (file read, socket read, `sleep`) releases the GVL
+so another thread can run while the first waits on the kernel. Fibers
+(`Fiber.new`) go a level lower — they're cooperative, single-stack
+coroutines with **no** automatic scheduling at all; a Fiber only yields
+control when it explicitly calls `Fiber.yield`, which is exactly the
+primitive Ruby's `Enumerator` and the `async` gem's event loop are built
+from. To get genuine parallelism across CPU cores in Ruby, you need
+separate OS processes (`fork`, `Process.spawn`) — each gets its own GVL —
+which is why frameworks like Puma default to a mix of processes (workers)
+and threads (concurrency within a worker) rather than threads alone.
+
 ## Cheat sheet
 
 | Task | Code |

@@ -154,6 +154,26 @@ testable class.
   refactor of the model layer; prefer testing against a real, disposable
   database as shown in this module's example.
 
+## How It Actually Works
+
+A "production pattern" like a connection pool or circuit breaker is
+ultimately just careful management of two things MRI gives you directly:
+threads/fibers for concurrency and objects for state. A connection pool
+(e.g., `ConnectionPool.new`) wraps a `Queue` (a thread-safe FIFO built on a
+`Mutex` + `ConditionVariable`) holding pre-created connection objects;
+checking a connection out pops from the queue (blocking the calling thread
+via the condition variable if empty, which releases the GVL exactly like
+any blocking wait), and checking it back in pushes it back and wakes one
+waiter. A circuit breaker is just a small state machine (closed/open/
+half-open) stored in an instance variable, guarded by a `Mutex` so
+concurrent threads don't race on the state transition — the "breaking"
+itself is nothing more than an `if` that raises early instead of attempting
+the wrapped call, informed by counters incremented on each success/failure.
+None of this requires anything beyond primitives already covered in
+Level 3's concurrency module — production resilience patterns are
+compositions of `Mutex`, `Queue`, and plain object state, not a separate
+runtime feature.
+
 ## Cheat sheet
 
 | Pattern | Responsibility | Typical entry point |

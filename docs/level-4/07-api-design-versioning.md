@@ -151,6 +151,25 @@ parsing a different shape per status code or per endpoint.
   version, breaking every consumer with zero warning and no rollback
   path other than reverting the deploy.
 
+## How It Actually Works
+
+URL-based API versioning (`/v1/users`) and header-based versioning
+(`Accept: application/vnd.myapp.v1+json`) both resolve to the same
+underlying mechanism in a Rack-based app: the router inspects some part of
+the request (`env["PATH_INFO"]` or `env["HTTP_ACCEPT"]`) and dispatches to
+a different controller/handler class based on it — there's no
+framework-level concept of "a version," just conditional routing on request
+data, exactly like the route-matching walk in Sinatra's routing table.
+Serializer objects (turning a model into a version-specific JSON shape)
+work by calling `#to_json` or building a hash explicitly rather than
+relying on ActiveRecord's default `as_json`, which is precisely why adding
+a new API version rarely requires touching the model — the model's
+dynamically-generated attribute methods (from Level 3) stay constant while
+the serialization layer that reads them changes per version. Deprecation
+headers are just ordinary response headers your controller code sets
+before returning — there's no separate "deprecation system," it's the same
+`[status, headers, body]` Rack triple every response is built from.
+
 ## Cheat sheet
 
 | Task | Convention |

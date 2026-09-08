@@ -119,6 +119,23 @@ explicit parameter for it — this is the foundation for `each`, `map`, and
 most of Ruby's iteration idioms, covered fully in
 [Module 8](08-blocks-procs-lambdas.md).
 
+## How It Actually Works
+
+Calling `obj.greet("world")` is not direct dispatch to a function pointer —
+MRI performs **method lookup** by walking `obj`'s **ancestor chain**: first
+`obj`'s singleton class (if it has one), then its class, then each module
+the class `include`s (in reverse inclusion order), then the superclass and
+its included modules, and so on up to `BasicObject`. You can print this
+chain yourself with `obj.class.ancestors`. Once found, MRI caches the
+lookup result (an inline method cache keyed on the class) so repeated calls
+on objects of the same class skip re-walking the chain — this is why
+monkey-patching a class after methods have already been JIT-cached can
+occasionally require cache invalidation, which MRI handles automatically
+by bumping a global "class serial" number whenever any class is reopened.
+Arguments themselves are passed by reference to the object, matching
+ordinary variable assignment — Ruby has no separate call-by-value
+semantics for method arguments.
+
 ## Cheat sheet
 
 | Feature | Syntax |

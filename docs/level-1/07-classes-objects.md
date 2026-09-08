@@ -154,6 +154,22 @@ rex = Dog.new("Rex", "Labrador")
 puts rex.describe   # Rex is a Labrador
 ```
 
+## How It Actually Works
+
+Every object in Ruby carries an invisible pointer to its class, and every
+class is itself an object — an instance of `Class`, which is itself an
+instance of `Class`. When you write `class Dog; end`, MRI allocates a
+`Class` object and stores a method table (a hash from method name to
+bytecode/C-function pointer) directly on it. Calling `dog.bark` doesn't
+search `dog` itself for a `bark` method — instance variables and methods
+live in different places: `@name` is stored in a slot table on the
+*instance*, while `bark`'s implementation lives in the *class's* method
+table, found via the ancestor-chain walk described elsewhere in this site.
+`attr_accessor :name` is just Ruby code that defines two methods
+(`name` and `name=`) on the class at load time using `define_method`
+internally — there's no special compiler magic, you could write those two
+`def`s by hand and get identical behavior.
+
 ## Cheat sheet
 
 | Feature | Syntax |

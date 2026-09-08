@@ -176,6 +176,24 @@ where each service is reachable by its service name.
   bloating it and potentially leaking local secrets that happened to be
   in an untracked `.env` file into a shipped image.
 
+## How It Actually Works
+
+A Docker image layer is a filesystem diff, and each instruction in your
+Dockerfile (`RUN`, `COPY`) creates one — this is why ordering matters for
+build caching: Docker hashes each instruction plus its inputs, and reuses a
+cached layer only if every prior instruction's hash also matched, so
+`COPY Gemfile* / bundle install` before `COPY . .` lets Docker reuse the
+(often slow) `bundle install` layer whenever only application code changed,
+not the Gemfile. Inside the running container, your Ruby process is just an
+ordinary MRI process — the container gives it an isolated view of
+processes, network, and filesystem via Linux namespaces and cgroups, but
+MRI itself has no idea it's containerized; the GVL, GC, and thread
+scheduler behave identically to running outside Docker. Multi-stage builds
+matter because gems with native C extensions need build tools (a compiler,
+headers) only during `bundle install`; copying just the compiled
+`vendor/bundle` output into a slim final-stage image avoids shipping the
+entire build toolchain in your production image, shrinking it substantially.
+
 ## Cheat sheet
 
 | Task | Command / directive |

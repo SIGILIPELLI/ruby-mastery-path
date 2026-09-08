@@ -183,6 +183,26 @@ A lambda created the same way is perfectly safe to call later, because its
 safer default when a callable is going to be stored or passed around rather
 than used immediately.
 
+## How It Actually Works
+
+Every block, proc, and lambda carries a **binding** — a live reference to
+the local-variable table, `self`, and method-visibility context of the
+scope where it was written, not a snapshot copied at creation time. This is
+why `Proc.new { x += 1 }` continues to see updates to `x` made by code
+outside the proc after the proc is created, and vice versa — both sides
+are reading and writing the exact same variable slot in the same binding
+object. `instance_eval`/`instance_exec` temporarily reassign `self` inside
+the block to a different receiver while keeping the *same* captured
+binding for local variables — this dual nature (borrowed `self`, original
+locals) is exactly what lets DSLs like RSpec's `describe` blocks call
+methods on an implicit receiver while still reading local variables from
+the surrounding test file. `&block` argument syntax performs an actual
+conversion at the call boundary: passing a `Proc` with `&` calls `to_proc`
+if needed and marks it for `yield`-style invocation, while capturing an
+implicit block as `&block` in a method signature calls the inverse
+conversion, wrapping the block's raw bytecode reference in a first-class
+`Proc` object.
+
 ## Cheat sheet
 
 | Feature | Syntax | Notes |

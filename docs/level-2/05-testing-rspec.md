@@ -190,6 +190,24 @@ end
 expectation** — the example fails if `logger.info("Started")` is never
 called with exactly that argument.
 
+## How It Actually Works
+
+An RSpec `describe`/`it` block isn't parsed by a special test-file grammar
+— it's ordinary Ruby method calls. `describe "Foo" do ... end` calls
+`RSpec::Core::ExampleGroup.describe`, which dynamically defines a new
+anonymous subclass of `ExampleGroup` using `Class.new` and evaluates the
+block in that subclass's context via `class_eval`; each `it` inside becomes
+a method defined on that generated class. Running the suite is just
+RSpec instantiating each generated example-group subclass and invoking its
+methods, catching exceptions to report pass/fail — a raised
+`RSpec::Expectations::ExpectationNotMetError` (which is what `expect(x).to
+eq(y)` raises internally when the match fails) is functionally the same
+unwinding mechanism covered in the exceptions module. `let` is implemented
+with memoization: it defines a method that runs the block once, caches the
+result in an instance variable, and returns the cached value on subsequent
+calls within the same example — which is why `let` values are lazy and
+reset between every `it`.
+
 ## Cheat sheet
 
 | RSpec construct | Purpose |

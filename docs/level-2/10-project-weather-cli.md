@@ -496,6 +496,22 @@ All 12 examples pass without ever touching the network — exactly the
 behavior you want from a test suite: fast, deterministic, and runnable
 offline or in CI.
 
+## How It Actually Works
+
+This project chains together three mechanisms covered elsewhere on this
+site as one pipeline: the HTTP request to the weather API blocks on a
+socket read (releasing MRI's GIL so, in a threaded version, other work
+could proceed), the response body is handed to `JSON.parse`'s
+recursive-descent parser to become a plain Ruby `Hash`/`Array` graph with
+no schema enforcement, and every `.dig` or `[]` you call afterward is
+ordinary hash-bucket lookup with no special "JSON path" syntax underneath —
+it's the same `Hash` internals from Module 5, Level 1. When the CLI catches
+`JSON::ParserError` or `Net::HTTP` exceptions around the request, that's
+the same stack-unwinding `rescue` mechanism from the exception-handling
+module: a malformed response or dropped connection raises, MRI walks back
+up the call stack looking for a matching `rescue`, and your `ensure` (if
+any) still runs on the way out regardless of which path was taken.
+
 ## Stretch goals
 
 - Add a `--units imperial` flag that converts Celsius to Fahrenheit before
