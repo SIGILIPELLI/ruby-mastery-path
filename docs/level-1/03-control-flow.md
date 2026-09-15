@@ -1,3 +1,7 @@
+---
+description: "Control Flow — Notice if/elsif/else blocks are closed with end, not curly braces — this is true of every block construct in Ruby (methods, loops, classes)."
+---
+
 # 03 · Control Flow
 
 ## 🎥 Video walkthrough
@@ -182,6 +186,12 @@ enclosing scope's bytecode, not a method call that takes a block (unlike
 | `each` | Idiomatic iteration (preferred over `for`) |
 | `break` | Exit the loop entirely |
 | `next` | Skip to the next iteration |
+
+## 🔀 See this in another language
+
+- [PHP — Control Flow](https://sigilipelli.github.io/php-mastery-path/level-1/03-control-flow/)
+- [MATLAB — Vectors & Matrix Operations](https://sigilipelli.github.io/matlab-mastery-path/level-1/03-vectors-matrices/)
+- [JavaScript — Control Flow](https://sigilipelli.github.io/javascript-mastery-path/level-1/03-control-flow/)
 
 ## Exercise
 

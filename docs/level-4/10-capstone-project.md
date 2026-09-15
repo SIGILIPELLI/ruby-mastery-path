@@ -1,3 +1,7 @@
+---
+description: "Capstone Project — The final project pulls together every Level 4 module into one small but production-shaped service: a Sinatra + ActiveRecord task API…"
+---
+
 # 10 · Capstone Project
 
 The final project pulls together every Level 4 module into one small but

@@ -1,3 +1,7 @@
+---
+description: "Concurrency in Ruby — Ruby has had real OS-level threads since forever, but MRI (the reference Ruby implementation you're almost certainly running) has a…"
+---
+
 # 07 · Concurrency in Ruby
 
 Ruby has had real OS-level threads since forever, but MRI (the reference

@@ -1,3 +1,7 @@
+---
+description: "Arrays & Hashes — A Ruby Array is a contiguous, growable buffer of object references (like a Vec in the C source), not a linked list — that's why arr[5]…"
+---
+
 # 05 · Arrays & Hashes
 
 ## 🎥 Video walkthrough
@@ -125,6 +129,12 @@ hash value never changes.
 | First match | `arr.find { \|x\| ... }` |
 | Safe hash lookup | `hash.fetch(:key, default)` |
 | Iterate a hash | `hash.each { \|k, v\| ... }` |
+
+## 🔀 See this in another language
+
+- [PHP — Arrays](https://sigilipelli.github.io/php-mastery-path/level-1/05-arrays/)
+- [MATLAB — Functions in MATLAB](https://sigilipelli.github.io/matlab-mastery-path/level-1/05-functions/)
+- [JavaScript — Arrays & Objects](https://sigilipelli.github.io/javascript-mastery-path/level-1/05-arrays-objects/)
 
 ## Exercise
 

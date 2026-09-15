@@ -1,3 +1,7 @@
+---
+description: "Project — Weather CLI — A capstone project pulling together everything from Level 2: OOP with modules and Comparable, blocks/Enumerable, custom exception…"
+---
+
 # 10 · Project — Weather CLI
 
 A capstone project pulling together everything from Level 2: OOP with

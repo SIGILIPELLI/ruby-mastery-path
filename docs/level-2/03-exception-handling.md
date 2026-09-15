@@ -1,3 +1,7 @@
+---
+description: "Exception Handling — Things go wrong at runtime: files don't exist, APIs time out, users type garbage into forms. Ruby's exception handling lets you…"
+---
+
 # 03 · Exception Handling
 
 Things go wrong at runtime: files don't exist, APIs time out, users type

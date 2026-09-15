@@ -1,3 +1,7 @@
+---
+description: "Classes & Objects Basics — initialize is the method Ruby calls automatically when you write Person.new(...) — it's the constructor, but it's just a…"
+---
+
 # 07 · Classes & Objects Basics
 
 ## Defining a class
@@ -182,6 +186,12 @@ internally — there's no special compiler magic, you could write those two
 | Class method | `def self.method_name ... end` |
 | Inheritance | `class Sub < Base ... end` |
 | Call parent method | `super(args)` |
+
+## 🔀 See this in another language
+
+- [PHP — Classes & Objects Basics](https://sigilipelli.github.io/php-mastery-path/level-1/07-classes-objects/)
+- [MATLAB — Working with Data Files](https://sigilipelli.github.io/matlab-mastery-path/level-1/07-data-files/)
+- [JavaScript — DOM Basics & Events](https://sigilipelli.github.io/javascript-mastery-path/level-1/07-dom-events/)
 
 ## Exercise
 

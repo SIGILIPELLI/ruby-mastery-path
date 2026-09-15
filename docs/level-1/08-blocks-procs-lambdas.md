@@ -1,3 +1,7 @@
+---
+description: "Blocks, Procs & Lambdas Introduction — Blocks are one of Ruby's defining features — a chunk of code you can pass to a method, which the method can invoke…"
+---
+
 # 08 · Blocks, Procs & Lambdas Introduction
 
 Blocks are one of Ruby's defining features — a chunk of code you can pass to
@@ -155,6 +159,12 @@ a lambda unwinds only the lambda's own frame, whereas `return` inside a
 | Create a Proc | `Proc.new { \|args\| ... }` |
 | Create a lambda | `->(args) { ... }` or `lambda { \|args\| ... }` |
 | Call a Proc/lambda | `.call(args)`, `.(args)`, or `[args]` |
+
+## 🔀 See this in another language
+
+- [PHP — Error Handling Basics](https://sigilipelli.github.io/php-mastery-path/level-1/08-error-handling/)
+- [MATLAB — String & Text Processing](https://sigilipelli.github.io/matlab-mastery-path/level-1/08-string-text-processing/)
+- [JavaScript — Error Handling Basics](https://sigilipelli.github.io/javascript-mastery-path/level-1/08-error-handling/)
 
 ## Exercise
 

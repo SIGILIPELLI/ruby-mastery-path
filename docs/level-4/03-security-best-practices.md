@@ -1,3 +1,7 @@
+---
+description: "Security Best Practices — Most Ruby security bugs come from trusting input that shouldn't be trusted: building a SQL query from a string, assigning…"
+---
+
 # 03 · Security Best Practices
 
 Most Ruby security bugs come from trusting input that shouldn't be

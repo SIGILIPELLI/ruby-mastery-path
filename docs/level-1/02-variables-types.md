@@ -1,3 +1,7 @@
+---
+description: "Variables & Types — Ruby variables need no type declaration — they're just names bound to objects, and the binding can change to point at a different type…"
+---
+
 # 02 · Variables & Types
 
 ## 🎥 Video walkthrough
@@ -142,6 +146,12 @@ string literals `"name"` which are distinct objects even with equal content.
 | String conversion | `.to_s`, `.to_i`, `.to_f` |
 | Symbol | `:name` — lightweight, immutable identifier |
 | Constant | `UPPER_SNAKE_CASE`, warns (not errors) on reassignment |
+
+## 🔀 See this in another language
+
+- [PHP — Variables & Types](https://sigilipelli.github.io/php-mastery-path/level-1/02-variables-types/)
+- [MATLAB — Variables & Basic Data Types](https://sigilipelli.github.io/matlab-mastery-path/level-1/02-variables-types/)
+- [JavaScript — Variables, Data Types & Operators](https://sigilipelli.github.io/javascript-mastery-path/level-1/02-variables-data-types/)
 
 ## Exercise
 

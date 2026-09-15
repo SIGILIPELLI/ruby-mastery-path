@@ -1,3 +1,7 @@
+---
+description: "Project — REST API Service — This capstone pulls together everything from Level 3: Sinatra routing, ActiveRecord as a standalone ORM, and RSpec request…"
+---
+
 # 10 · Project — REST API Service
 
 This capstone pulls together everything from Level 3: Sinatra routing,

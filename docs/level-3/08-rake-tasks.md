@@ -1,3 +1,7 @@
+---
+description: "Working with Rake Tasks — Rake ('Ruby Make') is Ruby's build-tool DSL — the thing running behind rails db:migrate, rake spec, and countless custom project…"
+---
+
 # 08 · Working with Rake Tasks
 
 Rake ("Ruby Make") is Ruby's build-tool DSL — the thing running behind

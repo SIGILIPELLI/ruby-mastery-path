@@ -1,3 +1,7 @@
+---
+description: "Gem Development Basics — A gem is Ruby's unit of packaged, shareable code — everything you bundle add or gem install (RSpec, JSON, Rails itself) is a gem.…"
+---
+
 # 08 · Gem Development Basics
 
 A **gem** is Ruby's unit of packaged, shareable code — everything you

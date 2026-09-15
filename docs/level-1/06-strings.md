@@ -1,3 +1,7 @@
+---
+description: "Strings & String Methods — 'single quotes' do not interpolate — '#{name}' prints literally as #{name}. Always use double quotes when you need #{...}…"
+---
+
 # 06 · Strings & String Methods
 
 ## String basics
@@ -120,6 +124,12 @@ allocation for strings that never need to change.
 | Check substring | `.include?`, `.start_with?`, `.end_with?` |
 | Regex match | `.match?(/pattern/)` |
 | Mutate in place | Bang methods: `.upcase!`, `.strip!`, etc. |
+
+## 🔀 See this in another language
+
+- [PHP — Strings & String Functions](https://sigilipelli.github.io/php-mastery-path/level-1/06-strings/)
+- [MATLAB — Plotting & Visualization Basics](https://sigilipelli.github.io/matlab-mastery-path/level-1/06-plotting-basics/)
+- [JavaScript — Strings & Template Literals](https://sigilipelli.github.io/javascript-mastery-path/level-1/06-strings-template-literals/)
 
 ## Exercise
 

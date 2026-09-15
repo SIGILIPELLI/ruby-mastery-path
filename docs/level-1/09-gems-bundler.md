@@ -1,3 +1,7 @@
+---
+description: "Gems & Bundler Basics — A gem is a Ruby package — a library someone else wrote that you can install and use in your own code. Bundler manages exactly…"
+---
+
 # 09 · Gems & Bundler Basics
 
 A **gem** is a Ruby package — a library someone else wrote that you can
@@ -128,6 +132,12 @@ system-installed version of a gem than the one your `Gemfile.lock` pinned.
 | Add a gem | Add a line to `Gemfile`, then `bundle install` |
 | Pessimistic version constraint | `gem "name", "~> 1.2"` |
 | Group gems (e.g. test-only) | `group :test do ... end` |
+
+## 🔀 See this in another language
+
+- [PHP — Composer & Package Basics](https://sigilipelli.github.io/php-mastery-path/level-1/09-composer-basics/)
+- [MATLAB — Basic Numerical Methods](https://sigilipelli.github.io/matlab-mastery-path/level-1/09-numerical-methods/)
+- [JavaScript — Modules & npm Basics](https://sigilipelli.github.io/javascript-mastery-path/level-1/09-modules-npm/)
 
 ## Exercise
 

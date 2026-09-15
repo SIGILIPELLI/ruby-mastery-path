@@ -1,3 +1,7 @@
+---
+description: "Testing at Scale & CI — A suite of 20 specs and one of 2,000 specs need different organizational tools. Shared examples avoid duplicating the same…"
+---
+
 # 04 · Testing at Scale & CI
 
 A suite of 20 specs and one of 2,000 specs need different organizational

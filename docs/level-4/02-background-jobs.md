@@ -1,3 +1,7 @@
+---
+description: "Background Jobs (Sidekiq) — Some work shouldn't happen inside a web request: sending an email, resizing an image, generating a report. Making the user…"
+---
+
 # 02 · Background Jobs (Sidekiq)
 
 Some work shouldn't happen inside a web request: sending an email,

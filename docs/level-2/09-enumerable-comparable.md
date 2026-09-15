@@ -1,3 +1,7 @@
+---
+description: "Enumerable & Comparable — Level 1 used each, map, select, and friends on Array and Hash without asking where they came from. The answer: Enumerable, a…"
+---
+
 # 09 · Enumerable & Comparable
 
 Level 1 used `each`, `map`, `select`, and friends on `Array` and `Hash`

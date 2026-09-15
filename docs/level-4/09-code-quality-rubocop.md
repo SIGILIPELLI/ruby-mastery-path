@@ -1,3 +1,7 @@
+---
+description: "Code Quality & RuboCop — RuboCop is a static analyzer and style enforcer for Ruby — it reads your code without running it and flags style violations…"
+---
+
 # 09 · Code Quality & RuboCop
 
 RuboCop is a static analyzer and style enforcer for Ruby — it reads your

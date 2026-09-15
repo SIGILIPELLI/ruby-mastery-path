@@ -1,3 +1,7 @@
+---
+description: "Performance at Scale — Module 6 of Level 3 covered measuring performance. This module covers the most common fix once you've measured and found a…"
+---
+
 # 06 · Performance at Scale
 
 Module 6 of Level 3 covered *measuring* performance. This module covers

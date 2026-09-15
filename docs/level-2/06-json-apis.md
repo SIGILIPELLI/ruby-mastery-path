@@ -1,3 +1,7 @@
+---
+description: "Working with JSON/APIs — Most modern services exchange data as JSON over HTTP. Ruby's standard library ships everything you need to both produce and…"
+---
+
 # 06 · Working with JSON/APIs
 
 Most modern services exchange data as JSON over HTTP. Ruby's standard

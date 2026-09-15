@@ -1,3 +1,7 @@
+---
+description: "Deployment (Docker) — A Docker image packages your Ruby app together with its exact runtime — the Ruby interpreter version, system libraries, and gems …"
+---
+
 # 05 · Deployment (Docker)
 
 !!! note "Verification note"

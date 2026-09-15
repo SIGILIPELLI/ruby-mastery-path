@@ -1,3 +1,7 @@
+---
+description: "Message Queues — Background jobs (module 2) decouple when work happens from the request that triggered it, but still assume one producer and one…"
+---
+
 # 08 · Message Queues
 
 Background jobs (module 2) decouple *when* work happens from the

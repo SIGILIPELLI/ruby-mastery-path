@@ -1,3 +1,7 @@
+---
+description: "Testing with RSpec — RSpec is the most widely used testing framework in the Ruby ecosystem. It lets you describe your code's expected behavior in…"
+---
+
 # 05 · Testing with RSpec
 
 RSpec is the most widely used testing framework in the Ruby ecosystem. It

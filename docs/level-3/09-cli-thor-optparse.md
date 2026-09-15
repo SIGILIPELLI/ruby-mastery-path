@@ -1,3 +1,7 @@
+---
+description: "Building CLIs with Thor or OptionParser — Ruby has two common ways to build a real command-line tool with flags and subcommands: OptionParser from the…"
+---
+
 # 09 · Building CLIs with Thor or OptionParser
 
 Ruby has two common ways to build a real command-line tool with flags and

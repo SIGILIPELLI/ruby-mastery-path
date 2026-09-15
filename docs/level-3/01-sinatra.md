@@ -1,3 +1,7 @@
+---
+description: "Building Web Apps with Sinatra — Every Ruby web framework you've heard of — including Rails — is built on Rack, a simple interface between web servers and…"
+---
+
 # 01 · Building Web Apps with Sinatra
 
 Every Ruby web framework you've heard of — including Rails — is built on

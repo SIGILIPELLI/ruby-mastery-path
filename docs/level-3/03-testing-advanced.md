@@ -1,3 +1,7 @@
+---
+description: "Testing Advanced — Level 2 covered RSpec basics — describe, it, expect(...).to eq(...). Real test suites also need to isolate a unit from its…"
+---
+
 # 03 · Testing Advanced
 
 Level 2 covered RSpec basics — `describe`, `it`, `expect(...).to eq(...)`.

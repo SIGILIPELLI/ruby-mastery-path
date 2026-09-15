@@ -1,3 +1,7 @@
+---
+description: "Databases with ActiveRecord — ActiveRecord is Rails' object-relational mapper, but it's a gem you can require and use in any Ruby script — no Rails app…"
+---
+
 # 02 · Databases with ActiveRecord
 
 ActiveRecord is Rails' object-relational mapper, but it's a gem you can

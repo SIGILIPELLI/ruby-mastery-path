@@ -1,3 +1,7 @@
+---
+description: "Blocks/Procs/Lambdas Advanced — Level 1 covered the basics: blocks, yield, and the argument/return differences between Proc and lambda. This lesson goes…"
+---
+
 # 02 · Blocks/Procs/Lambdas Advanced
 
 [Level 1](../level-1/08-blocks-procs-lambdas.md) covered the basics: blocks,

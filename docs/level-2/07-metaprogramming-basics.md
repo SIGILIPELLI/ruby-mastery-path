@@ -1,3 +1,7 @@
+---
+description: "Metaprogramming Basics — Metaprogramming is writing code that writes (or modifies) code at runtime. Ruby is exceptionally good at this — classes stay…"
+---
+
 # 07 · Metaprogramming Basics
 
 Metaprogramming is writing code that writes (or modifies) code at runtime.

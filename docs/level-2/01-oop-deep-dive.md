@@ -1,3 +1,7 @@
+---
+description: "OOP Deep Dive — Level 1 covered classes, attr_accessor, and single inheritance. Ruby only allows a class to have one superclass, but real programs need to…"
+---
+
 # 01 · OOP Deep Dive
 
 Level 1 covered classes, `attr_accessor`, and single inheritance. Ruby only

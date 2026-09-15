@@ -1,3 +1,7 @@
+---
+description: "Setup & First Program — Notice puts prints hello and then irb also shows => nil — that's the return value of the puts call itself (which is always nil)…"
+---
+
 # 01 · Setup & First Program
 
 ## 🎥 Video walkthrough
@@ -123,6 +127,12 @@ read-eval-print loop with no magic beyond what `eval` already gives you.
 VS Code (with the Ruby extension) or RubyMine both work well. The editor
 matters far less than getting comfortable with `irb` for quick checks and
 `ruby file.rb` for running real scripts.
+
+## 🔀 See this in another language
+
+- [PHP — Setup & First Program](https://sigilipelli.github.io/php-mastery-path/level-1/01-setup/)
+- [MATLAB — What Is MATLAB?](https://sigilipelli.github.io/matlab-mastery-path/level-1/01-what-is-matlab/)
+- [JavaScript — Setup & First Program](https://sigilipelli.github.io/javascript-mastery-path/level-1/01-setup/)
 
 ## Exercise
 

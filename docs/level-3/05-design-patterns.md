@@ -1,3 +1,7 @@
+---
+description: "Design Patterns in Ruby — Classic design patterns come from the Gang of Four book, written with statically-typed languages like C++ and Java in mind.…"
+---
+
 # 05 · Design Patterns in Ruby
 
 Classic design patterns come from the Gang of Four book, written with

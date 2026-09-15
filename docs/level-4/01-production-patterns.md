@@ -1,3 +1,7 @@
+---
+description: "Rails/Production Patterns — Rails controllers and ActiveRecord models are convenient defaults, but a growing app quickly accumulates business logic that…"
+---
+
 # 01 · Rails/Production Patterns
 
 Rails controllers and ActiveRecord models are convenient defaults, but a

@@ -1,3 +1,7 @@
+---
+description: "File I/O — Almost every real program eventually reads configuration, writes logs, or processes data files. Ruby's File and Dir classes wrap the operating…"
+---
+
 # 04 · File I/O
 
 Almost every real program eventually reads configuration, writes logs, or

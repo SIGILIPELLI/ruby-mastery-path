@@ -1,3 +1,7 @@
+---
+description: "Methods — Ruby methods return the value of their last evaluated expression by default — an explicit return is only needed to exit early."
+---
+
 # 04 · Methods
 
 ## 🎥 Video walkthrough
@@ -152,6 +156,12 @@ semantics for method arguments.
 | Implicit return | Last expression's value, or explicit `return` |
 | Predicate convention | `name?` returns true/false |
 | Dangerous/mutating convention | `name!` |
+
+## 🔀 See this in another language
+
+- [PHP — Functions](https://sigilipelli.github.io/php-mastery-path/level-1/04-functions/)
+- [MATLAB — Control Flow](https://sigilipelli.github.io/matlab-mastery-path/level-1/04-control-flow/)
+- [JavaScript — Functions & Scope](https://sigilipelli.github.io/javascript-mastery-path/level-1/04-functions-scope/)
 
 ## Exercise
 

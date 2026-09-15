@@ -1,3 +1,7 @@
+---
+description: "Performance & Profiling — 'It's slow' is not a diagnosis. Before optimizing anything, you need numbers: how long does this actually take, how does it…"
+---
+
 # 06 · Performance & Profiling
 
 "It's slow" is not a diagnosis. Before optimizing anything, you need

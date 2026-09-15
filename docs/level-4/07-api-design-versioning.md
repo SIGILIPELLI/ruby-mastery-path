@@ -1,3 +1,7 @@
+---
+description: "API Design & Versioning — An API is a contract: once external clients (a mobile app, another team's service, a third-party integration) depend on a…"
+---
+
 # 07 · API Design & Versioning
 
 An API is a contract: once external clients (a mobile app, another

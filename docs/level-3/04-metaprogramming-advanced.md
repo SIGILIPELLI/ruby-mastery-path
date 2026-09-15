@@ -1,3 +1,7 @@
+---
+description: "Metaprogramming Advanced — Level 1/2 metaprogramming touched method_missing and send in passing. This module goes deeper into the tools Ruby gives you to…"
+---
+
 # 04 · Metaprogramming Advanced
 
 Level 1/2 metaprogramming touched `method_missing` and `send` in passing.
