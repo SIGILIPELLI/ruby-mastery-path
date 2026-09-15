@@ -243,6 +243,10 @@ different data than existed when the job was enqueued.
 | Test without Redis | `Sidekiq::Testing.fake!` |
 | Assert enqueued in a test | `expect(SomeJob.jobs.size).to eq(1)` |
 
+## 🔀 See this in another language
+
+- [PowerShell — 01 · Advanced Remoting & Background Jobs](https://sigilipelli.github.io/powershell-mastery-path/level-4/01-advanced-remoting-jobs/)
+
 ## Exercise
 
 1. Extend the `InlineQueue` simulation with a `perform_in(delay, klass,

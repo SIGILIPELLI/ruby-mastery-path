@@ -190,6 +190,10 @@ before returning — there's no separate "deprecation system," it's the same
 | Success status for creation | `201 Created` |
 | Success status for deletion | `204 No Content` |
 
+## 🔀 See this in another language
+
+- [PHP — 06 · API Versioning & Documentation](https://sigilipelli.github.io/php-mastery-path/level-4/06-api-versioning-docs/)
+
 ## Exercise
 
 1. Design and implement `v1` and `v2` of a `GET /api/vN/products/:id`

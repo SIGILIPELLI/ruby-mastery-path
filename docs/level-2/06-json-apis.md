@@ -213,6 +213,12 @@ in Ruby despite the GIL.
 | POST with a body | `Net::HTTP::Post.new(uri)` + `request.body = ...` |
 | Set timeouts | `http.open_timeout =`, `http.read_timeout =` |
 
+## 🔀 See this in another language
+
+- [TypeScript — 08 · Working with JSON/APIs](https://sigilipelli.github.io/typescript-mastery-path/level-2/08-working-with-json-apis/)
+- [PHP — 06 · Working with JSON/APIs](https://sigilipelli.github.io/php-mastery-path/level-2/06-json-apis/)
+- [PowerShell — 07 · Working with JSON/REST APIs](https://sigilipelli.github.io/powershell-mastery-path/level-2/07-json-rest-apis/)
+
 ## Exercise
 
 Write a class `WeatherClient` (a preview of the level project) with a

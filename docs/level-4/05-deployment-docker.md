@@ -214,6 +214,12 @@ entire build toolchain in your production image, shrinking it substantially.
 | Multi-service local dev | `docker-compose up` |
 | Ignore files from the build context | `.dockerignore` |
 
+## 🔀 See this in another language
+
+- [TypeScript — 06 · Deployment with Docker](https://sigilipelli.github.io/typescript-mastery-path/level-4/06-deployment-docker/)
+- [C# — 07 · Deployment (Docker for .NET)](https://sigilipelli.github.io/csharp-mastery-path/level-4/07-deployment-docker/)
+- [Go — 06 · Deployment with Docker](https://sigilipelli.github.io/go-mastery-path/level-4/06-deployment-docker/)
+
 ## Exercise
 
 1. Write a `Dockerfile` for the Level 3 REST API capstone project

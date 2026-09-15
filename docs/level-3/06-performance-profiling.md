@@ -188,6 +188,12 @@ is frequently the highest-leverage optimization.
 | Check current heap size | `GC.stat[:heap_live_slots]` |
 | Time a whole script from the shell | `time ruby script.rb` |
 
+## 🔀 See this in another language
+
+- [Python — 10 · Profiling & Performance](https://sigilipelli.github.io/python-mastery-path/level-3/10-profiling-performance/)
+- [Java — 10 · Performance Profiling & Optimization](https://sigilipelli.github.io/java-mastery-path/level-3/10-profiling-optimization/)
+- [C++ — 09 · Performance Profiling](https://sigilipelli.github.io/cpp-mastery-path/level-3/09-performance-profiling/)
+
 ## Exercise
 
 1. Benchmark three ways of building a 10,000-element array of squares:

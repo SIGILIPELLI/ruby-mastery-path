@@ -260,3 +260,9 @@ genuinely shared resources you need to reason about for thread-safety.
    across separate `ruby` process runs without also removing
    `ActiveRecord::Schema.define` re-running `create_table` on every
    boot (hint: use `create_table ... unless ActiveRecord::Base.connection.table_exists?(:tasks)`).
+
+## 🔀 See this in another language
+
+- [Java — 11 · Project — REST API + Database CRUD Service](https://sigilipelli.github.io/java-mastery-path/level-3/11-project-rest-api-db/)
+- [C# — 10 · Project — REST API Service](https://sigilipelli.github.io/csharp-mastery-path/level-3/10-project-rest-api/)
+- [PHP — 10 · Project — REST API Service](https://sigilipelli.github.io/php-mastery-path/level-3/10-project-rest-api/)

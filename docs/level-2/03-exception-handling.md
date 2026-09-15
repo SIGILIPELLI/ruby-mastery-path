@@ -235,6 +235,10 @@ replaces `$!` and the original exception becomes accessible only via
 | `raise` (no args, inside rescue) | re-raise the current exception |
 | `raise SomeError, "message"` | raise a specific custom exception |
 
+## 🔀 See this in another language
+
+- [Java — 05 · Exception Handling Advanced](https://sigilipelli.github.io/java-mastery-path/level-2/05-exceptions-advanced/)
+
 ## Exercise
 
 Write a method `safe_divide(a, b)` that returns the division result, or
