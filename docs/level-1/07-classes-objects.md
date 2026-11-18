@@ -189,9 +189,9 @@ internally — there's no special compiler magic, you could write those two
 
 ## 🔀 See this in another language
 
-- [PHP — Classes & Objects Basics](https://sigilipelli.github.io/php-mastery-path/level-1/07-classes-objects/)
-- [MATLAB — Working with Data Files](https://sigilipelli.github.io/matlab-mastery-path/level-1/07-data-files/)
-- [JavaScript — DOM Basics & Events](https://sigilipelli.github.io/javascript-mastery-path/level-1/07-dom-events/)
+- [PHP — Classes & Objects Basics](https://learnmasterypath.com/php-mastery-path/level-1/07-classes-objects/)
+- [MATLAB — Working with Data Files](https://learnmasterypath.com/matlab-mastery-path/level-1/07-data-files/)
+- [JavaScript — DOM Basics & Events](https://learnmasterypath.com/javascript-mastery-path/level-1/07-dom-events/)
 
 ## Exercise
 

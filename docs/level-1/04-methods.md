@@ -159,9 +159,9 @@ semantics for method arguments.
 
 ## 🔀 See this in another language
 
-- [PHP — Functions](https://sigilipelli.github.io/php-mastery-path/level-1/04-functions/)
-- [MATLAB — Control Flow](https://sigilipelli.github.io/matlab-mastery-path/level-1/04-control-flow/)
-- [JavaScript — Functions & Scope](https://sigilipelli.github.io/javascript-mastery-path/level-1/04-functions-scope/)
+- [PHP — Functions](https://learnmasterypath.com/php-mastery-path/level-1/04-functions/)
+- [MATLAB — Control Flow](https://learnmasterypath.com/matlab-mastery-path/level-1/04-control-flow/)
+- [JavaScript — Functions & Scope](https://learnmasterypath.com/javascript-mastery-path/level-1/04-functions-scope/)
 
 ## Exercise
 

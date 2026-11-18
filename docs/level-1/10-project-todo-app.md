@@ -156,6 +156,6 @@ Completing this project means you're ready for **Level 2 · Intermediate**.
 
 ## 🔀 See this in another language
 
-- [PHP — Project — CLI To-Do App](https://sigilipelli.github.io/php-mastery-path/level-1/10-project-todo-app/)
-- [MATLAB — Project — Data Analysis & Plotting Script](https://sigilipelli.github.io/matlab-mastery-path/level-1/10-project-data-analysis/)
-- [JavaScript — Project — Browser To-Do List App](https://sigilipelli.github.io/javascript-mastery-path/level-1/10-project-todo-app/)
+- [PHP — Project — CLI To-Do App](https://learnmasterypath.com/php-mastery-path/level-1/10-project-todo-app/)
+- [MATLAB — Project — Data Analysis & Plotting Script](https://learnmasterypath.com/matlab-mastery-path/level-1/10-project-data-analysis/)
+- [JavaScript — Project — Browser To-Do List App](https://learnmasterypath.com/javascript-mastery-path/level-1/10-project-todo-app/)

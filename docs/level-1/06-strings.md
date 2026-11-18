@@ -127,9 +127,9 @@ allocation for strings that never need to change.
 
 ## 🔀 See this in another language
 
-- [PHP — Strings & String Functions](https://sigilipelli.github.io/php-mastery-path/level-1/06-strings/)
-- [MATLAB — Plotting & Visualization Basics](https://sigilipelli.github.io/matlab-mastery-path/level-1/06-plotting-basics/)
-- [JavaScript — Strings & Template Literals](https://sigilipelli.github.io/javascript-mastery-path/level-1/06-strings-template-literals/)
+- [PHP — Strings & String Functions](https://learnmasterypath.com/php-mastery-path/level-1/06-strings/)
+- [MATLAB — Plotting & Visualization Basics](https://learnmasterypath.com/matlab-mastery-path/level-1/06-plotting-basics/)
+- [JavaScript — Strings & Template Literals](https://learnmasterypath.com/javascript-mastery-path/level-1/06-strings-template-literals/)
 
 ## Exercise
 

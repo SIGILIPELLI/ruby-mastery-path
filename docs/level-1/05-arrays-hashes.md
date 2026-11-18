@@ -132,9 +132,9 @@ hash value never changes.
 
 ## 🔀 See this in another language
 
-- [PHP — Arrays](https://sigilipelli.github.io/php-mastery-path/level-1/05-arrays/)
-- [MATLAB — Functions in MATLAB](https://sigilipelli.github.io/matlab-mastery-path/level-1/05-functions/)
-- [JavaScript — Arrays & Objects](https://sigilipelli.github.io/javascript-mastery-path/level-1/05-arrays-objects/)
+- [PHP — Arrays](https://learnmasterypath.com/php-mastery-path/level-1/05-arrays/)
+- [MATLAB — Functions in MATLAB](https://learnmasterypath.com/matlab-mastery-path/level-1/05-functions/)
+- [JavaScript — Arrays & Objects](https://learnmasterypath.com/javascript-mastery-path/level-1/05-arrays-objects/)
 
 ## Exercise
 

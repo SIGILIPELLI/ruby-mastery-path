@@ -215,9 +215,9 @@ in Ruby despite the GIL.
 
 ## 🔀 See this in another language
 
-- [TypeScript — 08 · Working with JSON/APIs](https://sigilipelli.github.io/typescript-mastery-path/level-2/08-working-with-json-apis/)
-- [PHP — 06 · Working with JSON/APIs](https://sigilipelli.github.io/php-mastery-path/level-2/06-json-apis/)
-- [PowerShell — 07 · Working with JSON/REST APIs](https://sigilipelli.github.io/powershell-mastery-path/level-2/07-json-rest-apis/)
+- [TypeScript — 08 · Working with JSON/APIs](https://learnmasterypath.com/typescript-mastery-path/level-2/08-working-with-json-apis/)
+- [PHP — 06 · Working with JSON/APIs](https://learnmasterypath.com/php-mastery-path/level-2/06-json-apis/)
+- [PowerShell — 07 · Working with JSON/REST APIs](https://learnmasterypath.com/powershell-mastery-path/level-2/07-json-rest-apis/)
 
 ## Exercise
 

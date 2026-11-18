@@ -237,7 +237,7 @@ replaces `$!` and the original exception becomes accessible only via
 
 ## 🔀 See this in another language
 
-- [Java — 05 · Exception Handling Advanced](https://sigilipelli.github.io/java-mastery-path/level-2/05-exceptions-advanced/)
+- [Java — 05 · Exception Handling Advanced](https://learnmasterypath.com/java-mastery-path/level-2/05-exceptions-advanced/)
 
 ## Exercise
 

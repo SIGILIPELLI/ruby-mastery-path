@@ -192,7 +192,7 @@ before returning — there's no separate "deprecation system," it's the same
 
 ## 🔀 See this in another language
 
-- [PHP — 06 · API Versioning & Documentation](https://sigilipelli.github.io/php-mastery-path/level-4/06-api-versioning-docs/)
+- [PHP — 06 · API Versioning & Documentation](https://learnmasterypath.com/php-mastery-path/level-4/06-api-versioning-docs/)
 
 ## Exercise
 

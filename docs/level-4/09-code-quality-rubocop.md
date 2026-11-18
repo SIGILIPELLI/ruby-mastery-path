@@ -205,9 +205,9 @@ riskier for anything that could change runtime behavior.
 
 ## 🔀 See this in another language
 
-- [PHP — 09 · Code Quality Tools](https://sigilipelli.github.io/php-mastery-path/level-4/09-code-quality-tools/)
-- [Kotlin — 09 · Code Quality (detekt/ktlint)](https://sigilipelli.github.io/kotlin-mastery-path/level-4/09-code-quality/)
-- [Dart — 09 · Code Quality (`dart analyze` / lints)](https://sigilipelli.github.io/dart-mastery-path/level-4/09-code-quality/)
+- [PHP — 09 · Code Quality Tools](https://learnmasterypath.com/php-mastery-path/level-4/09-code-quality-tools/)
+- [Kotlin — 09 · Code Quality (detekt/ktlint)](https://learnmasterypath.com/kotlin-mastery-path/level-4/09-code-quality/)
+- [Dart — 09 · Code Quality (`dart analyze` / lints)](https://learnmasterypath.com/dart-mastery-path/level-4/09-code-quality/)
 
 ## Exercise
 

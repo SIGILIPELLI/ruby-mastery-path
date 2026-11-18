@@ -149,9 +149,9 @@ string literals `"name"` which are distinct objects even with equal content.
 
 ## 🔀 See this in another language
 
-- [PHP — Variables & Types](https://sigilipelli.github.io/php-mastery-path/level-1/02-variables-types/)
-- [MATLAB — Variables & Basic Data Types](https://sigilipelli.github.io/matlab-mastery-path/level-1/02-variables-types/)
-- [JavaScript — Variables, Data Types & Operators](https://sigilipelli.github.io/javascript-mastery-path/level-1/02-variables-data-types/)
+- [PHP — Variables & Types](https://learnmasterypath.com/php-mastery-path/level-1/02-variables-types/)
+- [MATLAB — Variables & Basic Data Types](https://learnmasterypath.com/matlab-mastery-path/level-1/02-variables-types/)
+- [JavaScript — Variables, Data Types & Operators](https://learnmasterypath.com/javascript-mastery-path/level-1/02-variables-data-types/)
 
 ## Exercise
 

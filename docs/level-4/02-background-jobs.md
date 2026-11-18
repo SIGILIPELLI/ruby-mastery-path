@@ -245,7 +245,7 @@ different data than existed when the job was enqueued.
 
 ## 🔀 See this in another language
 
-- [PowerShell — 01 · Advanced Remoting & Background Jobs](https://sigilipelli.github.io/powershell-mastery-path/level-4/01-advanced-remoting-jobs/)
+- [PowerShell — 01 · Advanced Remoting & Background Jobs](https://learnmasterypath.com/powershell-mastery-path/level-4/01-advanced-remoting-jobs/)
 
 ## Exercise
 

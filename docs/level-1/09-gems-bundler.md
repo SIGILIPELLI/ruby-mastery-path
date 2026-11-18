@@ -135,9 +135,9 @@ system-installed version of a gem than the one your `Gemfile.lock` pinned.
 
 ## 🔀 See this in another language
 
-- [PHP — Composer & Package Basics](https://sigilipelli.github.io/php-mastery-path/level-1/09-composer-basics/)
-- [MATLAB — Basic Numerical Methods](https://sigilipelli.github.io/matlab-mastery-path/level-1/09-numerical-methods/)
-- [JavaScript — Modules & npm Basics](https://sigilipelli.github.io/javascript-mastery-path/level-1/09-modules-npm/)
+- [PHP — Composer & Package Basics](https://learnmasterypath.com/php-mastery-path/level-1/09-composer-basics/)
+- [MATLAB — Basic Numerical Methods](https://learnmasterypath.com/matlab-mastery-path/level-1/09-numerical-methods/)
+- [JavaScript — Modules & npm Basics](https://learnmasterypath.com/javascript-mastery-path/level-1/09-modules-npm/)
 
 ## Exercise
 
