@@ -1,3 +1,7 @@
+---
+description: "Level 4 (Master) of the free Ruby Mastery Path: Rails/Production Patterns, Background Jobs (Sidekiq), Security Best Practices, Testing at Scale & CI…"
+---
+
 # Level 4 · Master
 
 ## Modules

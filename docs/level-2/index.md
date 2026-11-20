@@ -1,3 +1,7 @@
+---
+description: "Level 2 (Intermediate) of the free Ruby Mastery Path: OOP Deep Dive, Blocks/Procs/Lambdas Advanced, Exception Handling, File I/O, Testing with RSpec…"
+---
+
 # Level 2 · Intermediate
 
 ## Modules

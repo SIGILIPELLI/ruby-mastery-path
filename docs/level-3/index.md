@@ -1,3 +1,7 @@
+---
+description: "Level 3 (Advanced) of the free Ruby Mastery Path: Building Web Apps with Sinatra, Databases with ActiveRecord, Testing Advanced, Metaprogramming Advanced…"
+---
+
 # Level 3 · Advanced
 
 ## Modules
